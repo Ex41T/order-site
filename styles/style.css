@@ -698,17 +698,16 @@ body{
 /* kontrolki przeglądarki nieprzycinane */
 .portfolio-slider, .portfolio-track, .portfolio-item, .portfolio-video{ overflow: visible; }
 
-/* Mobile - włącz przewijanie poziome */
+/* Mobile - WYŁĄCZ CSS scroll, używamy tylko JS touch events */
 @media (max-width:768px){
   .portfolio-slider{ 
-    overflow-x: auto; 
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+    overflow: visible; /* Wyłącz CSS scroll */
+    scroll-behavior: auto; /* Wyłącz smooth scroll */
+    scroll-snap-type: none; /* Wyłącz snap */
+    -webkit-overflow-scrolling: auto; /* Wyłącz iOS smooth scrolling */
     scrollbar-width: none; /* Firefox - ukryj scrollbar */
     -ms-overflow-style: none; /* IE/Edge - ukryj scrollbar */
-    touch-action: pan-x; /* Pozwól tylko na poziome przewijanie */
+    touch-action: manipulation; /* Pozwól na touch ale nie scroll */
     overscroll-behavior-x: contain; /* Zapobiegaj overscroll */
   }
   
@@ -724,8 +723,8 @@ body{
     align-items: center; /* Wyśrodkuj pionowo */
   }
   .portfolio-item{ 
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+    scroll-snap-align: none; /* Wyłącz snap */
+    scroll-snap-stop: normal; /* Wyłącz snap */
     flex: 0 0 var(--card-w); /* Użyj zmiennej --card-w dla mobile */
     width: var(--card-w); /* Zapewnij stałą szerokość */
     flex-shrink: 0; /* Nie pozwól się zmniejszyć */
@@ -1285,7 +1284,7 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   .portfolio-arrow.right{ right: 0.25rem; }
 }
 
-/* Firefox specific fixes */
+/* Firefox specific fixes - NAPRAWIONE dla mobile */
 @-moz-document url-prefix() {
   .hero-section, .about-section, .contact-section {
     min-height: 100vh;
@@ -1298,6 +1297,40 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   .nav-container {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+  }
+  
+  /* Firefox Mobile - portfolio slider fixes */
+  @media (max-width: 768px) {
+    .portfolio-slider {
+      /* Usuń aspect-ratio na Firefox Mobile */
+      aspect-ratio: none !important;
+      height: clamp(180px, 30vh, 280px) !important;
+      width: min(100vw, 320px) !important;
+    }
+    
+    .portfolio-slider:has(.portfolio-item.active.landscape) {
+      aspect-ratio: none !important;
+      height: clamp(200px, 35vh, 320px) !important;
+      width: min(100vw, 380px) !important;
+    }
+    
+    .portfolio-video {
+      /* Fallback dla Firefox bez aspect-ratio */
+      height: 100% !important;
+      width: 100% !important;
+    }
+    
+    .portfolio-item.landscape .portfolio-video {
+      height: 100% !important;
+      width: 100% !important;
+    }
+    
+    /* Upewnij się że strzałki są widoczne */
+    .portfolio-arrow {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      z-index: 15 !important;
+    }
   }
 }
 
@@ -2232,44 +2265,57 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   aspect-ratio: 16 / 9;
 }
 
-/* Mobile portfolio slider */
+/* Mobile portfolio slider - NAPRAWIONE */
 @media (max-width:768px){
   .portfolio-slider-container{
-    --slider-w: min(100vw, 350px);
-    --slider-h: clamp(200px, 35vh, 350px);
+    --slider-w: min(100vw, 320px);
+    --slider-h: clamp(180px, 30vh, 280px); /* Zmniejszona wysokość */
     padding: 0 8px;
+    overflow: visible; /* Pozwól na touch events */
   }
   
   .portfolio-slider{
     gap: 12px;
-    aspect-ratio: 9 / 16;
+    /* Usuń aspect-ratio na mobile - powoduje problemy w Firefox */
+    height: var(--slider-h);
+    width: var(--slider-w);
+    overflow: visible; /* Wyłącz CSS scroll na mobile */
+    scroll-behavior: auto; /* Wyłącz smooth scroll */
+    scroll-snap-type: none; /* Wyłącz snap */
+    -webkit-overflow-scrolling: auto; /* Wyłącz iOS smooth scroll */
+    touch-action: manipulation; /* Pozwól na touch ale nie scroll */
   }
   
   .portfolio-slider:has(.portfolio-item.active.landscape){
-    --slider-w: min(100vw, 400px);
-    --slider-h: clamp(250px, 40vh, 400px);
-    aspect-ratio: 16 / 9;
+    --slider-w: min(100vw, 380px);
+    --slider-h: clamp(200px, 35vh, 320px);
+    /* Usuń aspect-ratio */
   }
   
   .portfolio-item{
-    --card-w: clamp(200px, 60vw, 280px);
+    --card-w: clamp(180px, 55vw, 260px); /* Mniejsze karty */
+    flex: 0 0 var(--card-w);
+    height: 100%;
   }
   
   .portfolio-arrow{
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
+    z-index: 10; /* Wyżej niż inne elementy */
+    pointer-events: auto; /* Zawsze aktywne na mobile */
+    opacity: 1 !important; /* Zawsze widoczne na mobile */
   }
   
-  .portfolio-arrow.left{ left: 8px; }
-  .portfolio-arrow.right{ right: 8px; }
+  .portfolio-arrow.left{ left: 4px; }
+  .portfolio-arrow.right{ right: 4px; }
   
   .portfolio-navigation{
-    bottom: 20px;
-    gap: 8px;
+    bottom: 15px;
+    gap: 6px;
   }
   
   .nav-dot{
-    --dot: 8px;
+    --dot: 7px;
   }
 }
 

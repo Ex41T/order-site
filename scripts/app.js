@@ -1034,7 +1034,7 @@
       const dots = container.querySelectorAll('.nav-dot');
       let currentIndex = 0;
       
-      // Funkcja do aktualizacji aktywnego elementu
+      // Funkcja do aktualizacji aktywnego elementu - NAPRAWIONA
       function updateActiveItem(index) {
         currentIndex = index;
         
@@ -1043,13 +1043,23 @@
           dot.classList.toggle('active', i === index);
         });
         
-        // Przewiń do aktywnego elementu
+        // Aktualizuj klasy active na elementach
+        items.forEach((item, i) => {
+          item.classList.toggle('active', i === index);
+          item.classList.toggle('left', i === index - 1);
+          item.classList.toggle('right', i === index + 1);
+        });
+        
+        // Przewiń do aktywnego elementu - ulepszona wersja
         if (items[index]) {
-          items[index].scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'nearest',
-            inline: 'center'
-          });
+          const item = items[index];
+          const containerRect = container.getBoundingClientRect();
+          const itemRect = item.getBoundingClientRect();
+          const scrollLeft = item.offsetLeft - (containerRect.width / 2) + (itemRect.width / 2);
+          
+          // Smooth scroll do elementu
+          track.style.transition = 'transform 0.3s ease-out';
+          track.style.transform = `translateX(-${scrollLeft}px)`;
         }
       }
       
@@ -1060,13 +1070,14 @@
         });
       });
       
-      // Touch/Swipe support - ulepszona wersja
+      // Touch/Swipe support - NAPRAWIONA wersja dla Firefox Mobile
       let startX = 0;
       let startY = 0;
       let isDragging = false;
       let hasMoved = false;
+      let initialTransform = 0;
       
-      // Touch start
+      // Touch start - ulepszona wersja
       slider.addEventListener('touchstart', (e) => {
         if (e.touches.length !== 1) return;
         
@@ -1075,11 +1086,18 @@
         isDragging = true;
         hasMoved = false;
         
-        // Zatrzymaj scroll podczas touch
-        slider.style.overflow = 'hidden';
+        // Zapisz początkową pozycję transform
+        const currentTransform = track.style.transform;
+        if (currentTransform) {
+          const match = currentTransform.match(/translateX\(-?(\d+(?:\.\d+)?)px\)/);
+          initialTransform = match ? parseFloat(match[1]) : 0;
+        }
+        
+        // Zatrzymaj animacje
+        track.style.transition = 'none';
       }, { passive: true });
       
-      // Touch move
+      // Touch move - ulepszona wersja
       slider.addEventListener('touchmove', (e) => {
         if (!isDragging || e.touches.length !== 1) return;
         
@@ -1089,25 +1107,31 @@
         const deltaY = currentY - startY;
         
         // Sprawdź czy to poziome przeciągnięcie
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 15) {
           hasMoved = true;
           e.preventDefault(); // Zablokuj pionowe przewijanie
           e.stopPropagation();
+          
+          // Przesuń track w czasie rzeczywistym
+          const newTransform = initialTransform + (deltaX * 0.5); // Zmniejszona czułość
+          track.style.transform = `translateX(-${newTransform}px)`;
         }
       }, { passive: false });
       
-      // Touch end
+      // Touch end - ulepszona wersja
       slider.addEventListener('touchend', (e) => {
         if (!isDragging) return;
         
         isDragging = false;
-        slider.style.overflow = 'auto'; // Przywróć scroll
+        
+        // Przywróć animacje
+        track.style.transition = 'transform 0.3s ease-out';
         
         if (!hasMoved) return;
         
         const endX = e.changedTouches[0].clientX;
         const deltaX = endX - startX;
-        const threshold = 30; // Zmniejszona odległość dla swipe
+        const threshold = 50; // Zwiększona odległość dla swipe
         
         if (Math.abs(deltaX) > threshold) {
           if (deltaX > 0) {
@@ -1119,32 +1143,52 @@
             const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
             updateActiveItem(nextIndex);
           }
+        } else {
+          // Jeśli swipe był za krótki, wróć do aktualnej pozycji
+          updateActiveItem(currentIndex);
         }
       }, { passive: true });
       
-      // Touch cancel
+      // Touch cancel - ulepszona wersja
       slider.addEventListener('touchcancel', () => {
         isDragging = false;
         hasMoved = false;
-        slider.style.overflow = 'auto';
+        track.style.transition = 'transform 0.3s ease-out';
+        updateActiveItem(currentIndex); // Wróć do aktualnej pozycji
       }, { passive: true });
       
-      // Strzałki (jeśli są widoczne)
+      // Strzałki - NAPRAWIONE dla mobile
       const prevBtn = container.querySelector('.portfolio-arrow.left');
       const nextBtn = container.querySelector('.portfolio-arrow.right');
       
       if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
+        prevBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
           updateActiveItem(prevIndex);
         });
+        
+        // Dodaj touch events dla strzałek
+        prevBtn.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }, { passive: false });
       }
       
       if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
+        nextBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
           updateActiveItem(nextIndex);
         });
+        
+        // Dodaj touch events dla strzałek
+        nextBtn.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }, { passive: false });
       }
       
       // Ustaw pierwszy element jako aktywny
