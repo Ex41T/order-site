@@ -391,6 +391,33 @@ body{
 .holo__photo img{
   width:100%; height:100%; object-fit:cover; transform: translateZ(0) scale(1);
   transition: transform 420ms cubic-bezier(.22,.61,.36,1); backface-visibility:hidden; will-change:transform;
+  border-radius: 50%; /* Upewnij się że obraz jest okrągły */
+}
+
+/* Mobile - lepsze wyświetlanie obrazów */
+@media (max-width:768px){
+  .holo__photo img{
+    object-fit: cover;
+    object-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* Ogólne style dla wszystkich obrazów na mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Lepsze wyświetlanie obrazów w portfolio */
+  .portfolio-video img,
+  .portfolio-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
 }
 @media (hover:hover){
   .holo:hover .holo__photo img{ transform: translateZ(0) scale(1.06); }
@@ -681,6 +708,8 @@ body{
     -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
     scrollbar-width: none; /* Firefox - ukryj scrollbar */
     -ms-overflow-style: none; /* IE/Edge - ukryj scrollbar */
+    touch-action: pan-x; /* Pozwól tylko na poziome przewijanie */
+    overscroll-behavior-x: contain; /* Zapobiegaj overscroll */
   }
   
   /* Webkit - ukryj scrollbar */
@@ -691,12 +720,15 @@ body{
     overflow: visible; /* Zachowaj dla animacji */
     width: max-content; /* Zapewnij pełną szerokość dla przewijania */
     min-width: 100%; /* Minimum szerokość kontenera */
+    display: flex; /* Upewnij się że to flex */
+    align-items: center; /* Wyśrodkuj pionowo */
   }
   .portfolio-item{ 
     scroll-snap-align: center;
     scroll-snap-stop: always;
     flex: 0 0 var(--card-w); /* Użyj zmiennej --card-w dla mobile */
     width: var(--card-w); /* Zapewnij stałą szerokość */
+    flex-shrink: 0; /* Nie pozwól się zmniejszyć */
   }
 }
 .video-controls-overlay{ position:absolute; inset:0 0 clamp(44px, 6vh, 64px) 0; z-index:1; pointer-events:none; }
@@ -1171,7 +1203,7 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
 @media (max-width:520px){
   .nav-container{ height:56px; }
   .about-title{ padding:8px 12px; border-radius:12px; }
-  .greeting-massive{ font-size: clamp(1.9rem, 7vw, 2.6rem); }
+  .greeting-massive{ font-size: clamp(1.5rem, 5vw, 2rem); }
 }
 
 /* Mobile - ogólne poprawki */
@@ -1180,12 +1212,12 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   .logo-text{ font-size: clamp(16px, 4vw, 20px); }
   .hero-section{ padding: clamp(60px, 10vw, 100px) 0; }
   .hero-title{ 
-    font-size: clamp(2rem, 8vw, 2.8rem); 
+    font-size: clamp(1.6rem, 6vw, 2.2rem); 
     line-height: 1.2; 
     margin-bottom: 16px;
   }
   .hero-subtitle{ 
-    font-size: clamp(1rem, 4vw, 1.3rem); 
+    font-size: clamp(0.9rem, 3.5vw, 1.2rem); 
     margin-bottom: 24px;
     line-height: 1.4;
   }
@@ -1217,8 +1249,8 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   .nav-container{ height:50px; padding: 0 0.75rem; }
   .logo-text{ font-size: clamp(14px, 4vw, 18px); }
   .hero-section{ padding: clamp(40px, 8vw, 80px) 0; }
-  .hero-title{ font-size: clamp(1.8rem, 8vw, 2.4rem); line-height: 1.1; }
-  .hero-subtitle{ font-size: clamp(1.1rem, 5vw, 1.4rem); }
+  .hero-title{ font-size: clamp(1.4rem, 6vw, 2rem); line-height: 1.1; }
+  .hero-subtitle{ font-size: clamp(0.8rem, 3vw, 1.1rem); }
   .hero-cta{ flex-direction: column; gap: 12px; }
   .btn-primary, .btn-secondary{ 
     padding: 12px 20px; 
@@ -1226,8 +1258,12 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
     min-width: 200px;
   }
   .about-section{ padding: clamp(40px, 8vw, 80px) 0; }
-  .holo{ width: clamp(200px, 50vw, 280px); height: clamp(200px, 50vw, 280px); }
-  .greeting-massive{ font-size: clamp(1.6rem, 6vw, 2.2rem); }
+  .holo{ 
+    width: clamp(180px, 45vw, 250px); 
+    height: clamp(180px, 45vw, 250px); 
+    margin: 0 auto;
+  }
+  .greeting-massive{ font-size: clamp(1.3rem, 4.5vw, 1.8rem); }
   .about-text{ font-size: clamp(0.9rem, 4vw, 1.1rem); line-height: 1.5; }
   .contact-section{ padding: clamp(40px, 8vw, 80px) 0; }
   .contact-form{ padding: 1rem; }
@@ -1291,7 +1327,11 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
     font-size: clamp(0.8rem, 3.5vw, 0.95rem);
     min-width: 180px;
   }
-  .holo{ width: clamp(180px, 45vw, 260px); height: clamp(180px, 45vw, 260px); }
+  .holo{ 
+    width: clamp(160px, 40vw, 220px); 
+    height: clamp(160px, 40vw, 220px); 
+    margin: 0 auto;
+  }
   .greeting-massive{ font-size: clamp(1.4rem, 5.5vw, 2rem); }
   .about-text{ font-size: clamp(0.85rem, 3.5vw, 1rem); }
   .infographic-card{ 
@@ -1359,7 +1399,9 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
 /* 0) Bezpieczna szerokość avatara gdy sekcja jest w kolumnie */
 .holo{
   /* avatar skaluje się ładnie od telefonów po laptopy */
-  width: clamp(240px, 56vw, 520px);
+  width: clamp(200px, 50vw, 480px);
+  height: clamp(200px, 50vw, 480px);
+  margin: 0 auto;
 }
 
 /* 1) Domyślnie i do 1699px – układ w kolumnie (avatar nad tekstem) */
@@ -2193,9 +2235,9 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
 /* Mobile portfolio slider */
 @media (max-width:768px){
   .portfolio-slider-container{
-    --slider-w: min(100vw, 400px);
-    --slider-h: clamp(300px, 50vh, 500px);
-    padding: 0 16px;
+    --slider-w: min(100vw, 350px);
+    --slider-h: clamp(200px, 35vh, 350px);
+    padding: 0 8px;
   }
   
   .portfolio-slider{

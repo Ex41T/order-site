@@ -1060,38 +1060,54 @@
         });
       });
       
-      // Touch/Swipe support
+      // Touch/Swipe support - ulepszona wersja
       let startX = 0;
       let startY = 0;
       let isDragging = false;
+      let hasMoved = false;
       
+      // Touch start
       slider.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         isDragging = true;
+        hasMoved = false;
+        
+        // Zatrzymaj scroll podczas touch
+        slider.style.overflow = 'hidden';
       }, { passive: true });
       
+      // Touch move
       slider.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
+        if (!isDragging || e.touches.length !== 1) return;
         
         const currentX = e.touches[0].clientX;
         const currentY = e.touches[0].clientY;
-        const deltaX = Math.abs(currentX - startX);
-        const deltaY = Math.abs(currentY - startY);
+        const deltaX = currentX - startX;
+        const deltaY = currentY - startY;
         
-        // Sprawdź czy to poziome przeciągnięcie (nie pionowe scroll)
-        if (deltaX > deltaY && deltaX > 10) {
+        // Sprawdź czy to poziome przeciągnięcie
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+          hasMoved = true;
           e.preventDefault(); // Zablokuj pionowe przewijanie
+          e.stopPropagation();
         }
       }, { passive: false });
       
+      // Touch end
       slider.addEventListener('touchend', (e) => {
         if (!isDragging) return;
+        
         isDragging = false;
+        slider.style.overflow = 'auto'; // Przywróć scroll
+        
+        if (!hasMoved) return;
         
         const endX = e.changedTouches[0].clientX;
         const deltaX = endX - startX;
-        const threshold = 50; // Minimalna odległość dla swipe
+        const threshold = 30; // Zmniejszona odległość dla swipe
         
         if (Math.abs(deltaX) > threshold) {
           if (deltaX > 0) {
@@ -1104,6 +1120,13 @@
             updateActiveItem(nextIndex);
           }
         }
+      }, { passive: true });
+      
+      // Touch cancel
+      slider.addEventListener('touchcancel', () => {
+        isDragging = false;
+        hasMoved = false;
+        slider.style.overflow = 'auto';
       }, { passive: true });
       
       // Strzałki (jeśli są widoczne)
