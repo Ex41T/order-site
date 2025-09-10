@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Regulamin · Patryk Bobrowski</title>
+  <meta name="description" content="Regulamin korzystania z serwisu Patryk Bobrowski." />
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#0b0b0f">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&family=Roboto:wght@100..900&family=Sansation:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS główny -->
+  <link rel="stylesheet" href="./styles/style.css">
+
+  <!-- Ikony -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <!-- Tło -->
+  <canvas class="particles-canvas" id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="hub-gradient-layer" aria-hidden="true"></div>
+  <div class="liquid-bg" aria-hidden="true">
+    <div class="gradient-orb orb-1" aria-hidden="true"></div>
+    <div class="gradient-orb orb-2" aria-hidden="true"></div>
+    <div class="gradient-orb orb-3" aria-hidden="true"></div>
+  </div>
+
+  <!-- Nawigacja -->
+  <header class="nav-glass site-header" role="banner">
+    <div class="nav-container nav">
+      <a class="logo-liquid nav__brand" href="index.html#start" aria-label="Strona główna — Patryk Bobrowski">
+        <span class="logo-text">Patryk Bobrowski</span>
+      </a>
+
+      <!-- Desktop -->
+      <div class="nav__links nav__links--desktop">
+        <a class="nav-link" href="index.html#about">O mnie</a>
+        <a class="nav-link" href="index.html#portfolio">Portfolio</a>
+        <a class="nav-link" href="index.html#contact">Kontakt</a>
+      </div>
+
+      <!-- Mobile (burger) -->
+      <details class="nav__mobile">
+        <summary class="nav__toggle" aria-label="Otwórz menu">
+          <span class="nav__burger" aria-hidden="true"><span></span></span>
+          <span class="sr-only">Menu</span>
+        </summary>
+
+        <div class="nav__overlay" aria-hidden="true"></div>
+
+        <nav class="nav__panel" role="menu" aria-label="Menu mobilne">
+          <button class="nav__close" type="button" aria-label="Zamknij menu">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+
+          <div class="lang-switch lang-switch--mobile" role="group" aria-label="Language">
+            <a href="/" lang="pl">PL</a>
+            <span aria-hidden="true">·</span>
+            <a href="/en/terms.html" lang="en">EN</a>
+          </div>
+
+          <a role="menuitem" href="index.html#start">Start</a>
+          <a role="menuitem" href="index.html#about">O mnie</a>
+          <a role="menuitem" href="index.html#portfolio">Portfolio</a>
+          <a role="menuitem" href="index.html#contact">Kontakt</a>
+        </nav>
+      </details>
+    </div>
+    <div class="lang-switch">
+      <a href="/" lang="pl">PL</a> | <a href="/en/terms.html" lang="en">EN</a>
+    </div>
+  </header>
+
+  <main style="margin-top:120px;">
+    <section class="container">
+      <article class="glass-card" style="max-width:960px; margin:0 auto; padding:24px; border-radius:18px; line-height:1.7; font-size:15px;">
+        <h1 class="section-title" style="letter-spacing:3px;">REGULAMIN</h1>
+        <p>Ostatnia aktualizacja: <time datetime="2025-08-08">8 sierpnia 2025</time></p>
+
+        <h2>1. Postanowienia ogólne</h2>
+        <p>Regulamin określa zasady korzystania z serwisu <strong>patrykbobrowski.pl</strong>.</p>
+
+        <h2>2. Definicje</h2>
+        <p><strong>Użytkownik</strong> – osoba korzystająca z serwisu.<br>
+        <strong>Administrator</strong> – Patryk Bobrowski.</p>
+
+        <h2>3. Zasady korzystania</h2>
+        <ul>
+          <li>Serwis dostępny jest dla wszystkich użytkowników Internetu.</li>
+          <li>Użytkownik zobowiązuje się do korzystania zgodnie z prawem i dobrymi obyczajami.</li>
+          <li>Zakazane jest dostarczanie treści bezprawnych.</li>
+        </ul>
+
+        <h2>4. Odpowiedzialność</h2>
+        <p>Administrator nie ponosi odpowiedzialności za działania użytkowników naruszające przepisy prawa ani za treści pochodzące od podmiotów trzecich.</p>
+
+        <h2>5. Prawa autorskie</h2>
+        <p>Wszelkie materiały umieszczone w serwisie są chronione prawem autorskim. Kopiowanie i rozpowszechnianie bez zgody jest zabronione.</p>
+
+        <h2>6. Dane kontaktowe</h2>
+        <p>Kontakt: <a href="mailto:supertrewi@gmail.com" class="nav-link" style="text-decoration:underline;">supertrewi@gmail.com</a></p>
+
+        <h2>7. Postanowienia końcowe</h2>
+        <p>Regulamin podlega prawu polskiemu. Administrator zastrzega prawo do zmian regulaminu. Aktualna wersja jest publikowana na tej stronie.</p>
+      </article>
+    </section>
+  </main>
+
+  <!-- Stopka -->
+  <footer class="footer">
+    © <span id="year"></span> Patryk Bobrowski. Wszelkie prawa zastrzeżone.
+    <span class="sep"> · </span><a class="nav-link" href="/terms.html">Terms</a>
+    <span class="sep"> · </span><a class="nav-link" href="/privacy.html">Privacy</a>
+    <span class="sep"> · </span><a class="nav-link" href="/cookies-settings.html">Ustawienia cookies</a>
+  </footer>
+  <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+  <noscript><style>.particles-canvas,.hub-gradient-layer,.liquid-bg{display:none!important}</style></noscript>
+</body>
+</html>

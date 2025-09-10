@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cookie Settings · Patryk Bobrowski</title>
+  <meta name="description" content="Manage consent for different categories of cookies. Changes are saved automatically." />
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#0b0b0f">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&family=Roboto:wght@100..900&family=Sansation:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Extra styles only for accept/reject buttons -->
+  <style>
+    :root {
+      --btn-h: 48px;
+      --btn-pad-x: 18px;
+      --btn-radius: 14px;
+    }
+    .btn-base {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: var(--btn-h);
+      padding: 0 var(--btn-pad-x);
+      border-radius: var(--btn-radius);
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(25,45,60,.85), rgba(15,25,40,.85));
+      color: #eaf8ff;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .2px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 10px 30px rgba(0,0,0,.35);
+      transition: transform .08s ease,
+                  box-shadow .2s ease,
+                  border-color .2s ease,
+                  background .2s ease;
+      will-change: transform, box-shadow;
+    }
+    .btn-base i { font-size: .95em; }
+    .btn-base:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 14px 36px rgba(0,0,0,.45),
+        0 0 24px rgba(0, 255, 255, .22);
+    }
+    .btn-base:active {
+      transform: translateY(0);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 8px 20px rgba(0,0,0,.40);
+    }
+    .btn-base:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 3px rgba(0,255,255,.25),
+        0 0 0 6px rgba(0,255,255,.12);
+    }
+    .btn-accept {
+      background:
+        radial-gradient(120% 120% at 20% 0%, rgba(0,243,255,.35) 0%, rgba(0,200,255,.08) 40%, rgba(10,20,35,.85) 100%),
+        linear-gradient(180deg, rgba(0,160,200,.45), rgba(0,120,160,.35));
+      border-color: rgba(0,214,255,.55);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 10px 30px rgba(0,214,255,.20),
+        0 0 32px rgba(0,214,255,.18);
+    }
+    .btn-accept:hover {
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.20),
+        0 16px 44px rgba(0,214,255,.28),
+        0 0 42px rgba(0,214,255,.28);
+    }
+    .btn-reject {
+      background:
+        radial-gradient(120% 120% at 20% 0%, rgba(255,45,95,.28) 0%, rgba(255,0,80,.06) 38%, rgba(10,20,35,.85) 100%),
+        linear-gradient(180deg, rgba(120,20,50,.45), rgba(70,10,30,.35));
+      border-color: rgba(255,70,120,.55);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.14),
+        0 10px 30px rgba(255,40,100,.18),
+        0 0 32px rgba(255,40,100,.18);
+    }
+    .btn-reject:hover {
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 16px 44px rgba(255,40,100,.26),
+        0 0 42px rgba(255,40,100,.26);
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#start"></a>
+
+  <!-- BACKGROUND -->
+  <canvas class="particles-canvas" id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="hub-gradient-layer" aria-hidden="true"></div>
+  <div class="liquid-bg" aria-hidden="true">
+    <div class="gradient-orb orb-1" aria-hidden="true"></div>
+    <div class="gradient-orb orb-2" aria-hidden="true"></div>
+    <div class="gradient-orb orb-3" aria-hidden="true"></div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="nav-glass site-header" role="banner">
+    <div class="nav-container nav">
+      <a class="logo-liquid nav__brand" href="/en/index.html" aria-label="Home — Patryk Bobrowski">
+        <span class="logo-text">Patryk Bobrowski</span>
+      </a>
+
+      <!-- Desktop -->
+      <div class="nav__links nav__links--desktop">
+        <a class="nav-link" href="../index.html#about">About</a>
+        <a class="nav-link" href="../index.html#portfolio">Portfolio</a>
+        <a class="nav-link" href="../index.html#contact">Contact</a>
+      </div>
+
+      <!-- Mobile -->
+      <details class="nav__mobile">
+        <summary class="nav__toggle" aria-label="Open menu">
+          <span class="nav__burger" aria-hidden="true"><span></span></span>
+          <span class="sr-only">Menu</span>
+        </summary>
+
+        <div class="nav__overlay" aria-hidden="true"></div>
+
+        <nav class="nav__panel" role="menu" aria-label="Mobile menu">
+          <button class="nav__close" type="button" aria-label="Close menu">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+
+          <div class="lang-switch lang-switch--mobile" role="group" aria-label="Language">
+            <a href="/" lang="pl">PL</a>
+            <span aria-hidden="true">·</span>
+            <a href="/index.html" lang="en">EN</a>
+          </div>
+
+          <a role="menuitem" href="../index.html#start">Start</a>
+          <a role="menuitem" href="../index.html#about">About</a>
+          <a role="menuitem" href="../index.html#portfolio">Portfolio</a>
+          <a role="menuitem" href="../index.html#contact">Contact</a>
+        </nav>
+      </details>
+    </div>
+
+    <div class="lang-switch">
+      <a href="/cookies-settings.html" lang="pl">PL</a> | <a href="/en/cookies-settings.html" lang="en">EN</a>
+    </div>
+  </header>
+
+  <main id="start" role="main">
+    <section class="section-header" style="margin-top:120px;">
+      <div class="container">
+        <div class="glass-card" style="text-align:center; padding:28px 24px; max-width:920px; margin:0 auto 24px; border-radius:20px;">
+          <h1 class="section-title" style="letter-spacing:4px; margin-bottom:6px;">COOKIE SETTINGS</h1>
+          <p class="apple-text" style="opacity:.9">Manage consent for different categories of cookies. <strong>Auto-save</strong> after changes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="glass-card" style="max-width:960px; margin:0 auto; padding:22px; border-radius:18px;">
+        <header style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:14px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,.08);">
+          <h2 class="section-title" style="font-size:22px; margin:0; letter-spacing:1px;">Cookie categories</h2>
+          <a href="/en/cookies.html" class="btn-primary sweepable" style="white-space:nowrap;"><i class="fa-solid fa-book-open"></i> Cookie Policy</a>
+        </header>
+
+        <div class="settings-grid" style="display:grid; gap:14px;">
+          <!-- NECESSARY -->
+          <article class="glass-card" style="display:flex; align-items:center; gap:16px; padding:14px 16px; margin:0;">
+            <label class="consent-control">
+              <input type="checkbox" checked disabled aria-label="Necessary cookies always enabled">
+              <span class="checkmark" aria-hidden="true"></span>
+            </label>
+            <div style="flex:1 1 auto;">
+              <div class="apple-clean-text" style="font-weight:700;">Necessary</div>
+              <div class="apple-clean-text" style="opacity:.85;">Required for the website to function (security, basic features). Always active.</div>
+            </div>
+          </article>
+
+          <!-- FUNCTIONAL -->
+          <article class="glass-card" style="display:flex; align-items:center; gap:16px; padding:14px 16px; margin:0;">
+            <label class="consent-control">
+              <input id="consent-functional" type="checkbox" aria-label="Enable functional">
+              <span class="checkmark" aria-hidden="true"></span>
+            </label>
+            <div style="flex:1 1 auto;">
+              <div class="apple-clean-text" style="font-weight:700;">Functional</div>
+              <div class="apple-clean-text" style="opacity:.85;">Remembering settings and UI preferences.</div>
+            </div>
+          </article>
+
+          <!-- ANALYTICAL -->
+          <article class="glass-card" style="display:flex; align-items:center; gap:16px; padding:14px 16px; margin:0;">
+            <label class="consent-control">
+              <input id="consent-analytics" type="checkbox" aria-label="Enable analytical">
+              <span class="checkmark" aria-hidden="true"></span>
+            </label>
+            <div style="flex:1 1 auto;">
+              <div class="apple-clean-text" style="font-weight:700;">Analytical</div>
+              <div class="apple-clean-text" style="opacity:.85;">Traffic and performance measurement (e.g., GA with IP anonymization).</div>
+            </div>
+          </article>
+
+          <!-- MARKETING -->
+          <article class="glass-card" style="display:flex; align-items:center; gap:16px; padding:14px 16px; margin:0;">
+            <label class="consent-control">
+              <input id="consent-marketing" type="checkbox" aria-label="Enable marketing">
+              <span class="checkmark" aria-hidden="true"></span>
+            </label>
+            <div style="flex:1 1 auto;">
+              <div class="apple-clean-text" style="font-weight:700;">Marketing</div>
+              <div class="apple-clean-text" style="opacity:.85;">Personalization of content and ads, e.g., for embedded media.</div>
+            </div>
+          </article>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="cookie-actions" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-start; margin-top:18px;">
+          <button type="button" id="btn-accept-all" class="btn-base btn-accept"><i class="fa-solid fa-check"></i> Accept all</button>
+          <button type="button" id="btn-reject-all" class="btn-base btn-reject"><i class="fa-solid fa-ban"></i> Reject all</button>
+          <a href="#start" class="btn-base"><i class="fa-solid fa-arrow-up"></i> Back to top</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    © <span id="year"></span> Patryk Bobrowski. All rights reserved.
+    <span class="sep" aria-hidden="true"> · </span><a class="nav-link" href="/en/terms.html">Terms</a>
+    <span class="sep" aria-hidden="true"> · </span><a class="nav-link" href="/en/privacy.html">Privacy</a>
+    <span class="sep" aria-hidden="true"> · </span><a class="nav-link" href="/en/cookies-settings.html">Cookie settings</a>
+  </footer>
+  <!-- JS -->
+  <script src="../scripts/app.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+      const a = document.getElementById('consent-analytics');
+      const m = document.getElementById('consent-marketing');
+      const f = document.getElementById('consent-functional');
+
+      try {
+        const saved = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+        a.checked = !!saved.analytics;
+        m.checked = !!saved.marketing;
+        f.checked = !!saved.functional;
+      } catch(_) {}
+
+      function updateConsent(state){
+        localStorage.setItem('cookie-consent-v1', JSON.stringify({
+          functional: !!state.functional,
+          analytics: !!state.analytics,
+          marketing: !!state.marketing,
+          ts: Date.now()
+        }));
+        if (window.gtag) {
+          window.gtag('consent', 'update', {
+            functionality_storage: state.functional ? 'granted' : 'denied',
+            analytics_storage: state.analytics ? 'granted' : 'denied',
+            ad_storage: state.marketing ? 'granted' : 'denied',
+            ad_user_data: state.marketing ? 'granted' : 'denied',
+            ad_personalization: state.marketing ? 'granted' : 'denied'
+          });
+        }
+        if (state.analytics && typeof window.loadGA === 'function') {
+          window.loadGA();
+        }
+      }
+
+      [a, m, f].forEach(el => el.addEventListener('change', () => {
+        updateConsent({ analytics: a.checked, marketing: m.checked, functional: f.checked });
+      }));
+
+      document.getElementById('btn-accept-all').addEventListener('click', () => {
+        a.checked = true; m.checked = true; f.checked = true;
+        updateConsent({ analytics: true, marketing: true, functional: true });
+      });
+      document.getElementById('btn-reject-all').addEventListener('click', () => {
+        a.checked = false; m.checked = false; f.checked = false;
+        updateConsent({ analytics: false, marketing: false, functional: false });
+      });
+    });
+  </script>
+  <noscript>
+    <style>.particles-canvas,.hub-gradient-layer,.liquid-bg{display:none!important}</style>
+  </noscript>
+</body>
+</html>

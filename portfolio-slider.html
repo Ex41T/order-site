@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Slider - YouTube Shorts</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ===== SLIDER CONTAINER ===== */
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .slider__title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #00d4ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slider__container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .slider__track {
+            display: flex;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+
+        .slider__item {
+            flex: 0 0 auto;
+            width: 320px;
+            aspect-ratio: 16/9;
+            margin-right: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slider__item:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .slider__item:last-child {
+            margin-right: 0;
+        }
+
+        /* ===== VIDEO CONTAINER ===== */
+        .slider__video {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider__thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .slider__play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 0, 0.9);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .slider__play-button:hover {
+            background: #ff0000;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .slider__play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid #fff;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .slider__iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+
+        .slider__iframe--active {
+            display: block;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .slider__nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #333;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .slider__nav:hover {
+            background: rgba(0, 212, 255, 0.8);
+            border-color: #00d4ff;
+        }
+
+        .slider__nav--prev {
+            left: -25px;
+        }
+
+        .slider__nav--next {
+            right: -25px;
+        }
+
+        .slider__nav::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-left: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+        }
+
+        .slider__nav--next::before {
+            transform: rotate(-45deg);
+        }
+
+        .slider__nav--prev::before {
+            transform: rotate(135deg);
+        }
+
+        .slider__nav--disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slider__nav--disabled:hover {
+            background: rgba(0, 0, 0, 0.7);
+            border-color: #333;
+        }
+
+        /* ===== DOTS ===== */
+        .slider__dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .slider__dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider__dot--active {
+            background: #00d4ff;
+            transform: scale(1.2);
+        }
+
+        .slider__dot:hover {
+            background: #00d4ff;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .slider {
+                padding: 20px 10px;
+            }
+
+            .slider__title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .slider__item {
+                width: 280px;
+                margin-right: 15px;
+            }
+
+            .slider__nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .slider__nav--prev {
+                left: -20px;
+            }
+
+            .slider__nav--next {
+                right: -20px;
+            }
+
+            .slider__play-button {
+                width: 50px;
+                height: 50px;
+            }
+
+            .slider__play-button::before {
+                border-left: 16px solid #fff;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider__item {
+                width: 250px;
+                margin-right: 10px;
+            }
+
+            .slider__nav {
+                display: none;
+            }
+        }
+
+        /* ===== LOADING STATE ===== */
+        .slider__item--loading {
+            background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ===== ACCESSIBILITY ===== */
+        .slider__item:focus {
+            outline: 2px solid #00d4ff;
+            outline-offset: 2px;
+        }
+
+        .slider__nav:focus {
+            outline: 2px solid #00d4ff;
+            outline-offset: 2px;
+        }
+
+        .slider__dot:focus {
+            outline: 2px solid #00d4ff;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <section class="slider" role="region" aria-label="Portfolio YouTube Shorts">
+        <h2 class="slider__title">Portfolio</h2>
+        
+        <div class="slider__container">
+            <div class="slider__track" id="sliderTrack">
+                <!-- Items will be generated by JavaScript -->
+            </div>
+            
+            <button class="slider__nav slider__nav--prev" id="prevBtn" aria-label="Poprzedni slajd">
+            </button>
+            
+            <button class="slider__nav slider__nav--next" id="nextBtn" aria-label="Następny slajd">
+            </button>
+        </div>
+        
+        <div class="slider__dots" id="sliderDots" role="tablist" aria-label="Nawigacja slidera">
+            <!-- Dots will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <script>
+        class YouTubeSlider {
+            constructor() {
+                // YouTube video IDs
+                this.videos = [
+                    'uAvKsVxWVwI',
+                    'jA0rw3rDNxY', 
+                    'T44hbbAmIxU',
+                    'JvMJ3tRFjb8',
+                    '_isuZRmbA-0',
+                    'JX7CB-0vY9U',
+                    'VUc09CIQZHo',
+                    '-yEBfohUgpU',
+                    'ieC5mFuB9PQ',
+                    'NsQg8y5WrEs',
+                    'vhAD6b8ui-Y',
+                    'DefN84Im7UU',
+                    'SFkLBaFWcGw',
+                    'Y6vI3l4zomM',
+                    'PUtsLJQWaFQ',
+                    'R_fQCIZOfvU',
+                    'sVZXze7p6TU'
+                ];
+
+                this.currentIndex = 0;
+                this.track = document.getElementById('sliderTrack');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.dotsContainer = document.getElementById('sliderDots');
+                this.items = [];
+                this.loadedVideos = new Set();
+                this.isAnimating = false;
+
+                this.init();
+            }
+
+            init() {
+                this.createItems();
+                this.createDots();
+                this.bindEvents();
+                this.updateSlider();
+                this.setupIntersectionObserver();
+            }
+
+            createItems() {
+                this.videos.forEach((videoId, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'slider__item';
+                    item.setAttribute('role', 'tabpanel');
+                    item.setAttribute('aria-label', `Film ${index + 1}`);
+                    item.tabIndex = 0;
+
+                    item.innerHTML = `
+                        <div class="slider__video">
+                            <img 
+                                class="slider__thumbnail" 
+                                src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" 
+                                alt="Thumbnail filmu ${index + 1}"
+                                loading="lazy"
+                            >
+                            <button class="slider__play-button" data-video-id="${videoId}">
+                            </button>
+                            <iframe 
+                                class="slider__iframe" 
+                                src="" 
+                                title="YouTube video ${index + 1}"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                    `;
+
+                    this.track.appendChild(item);
+                    this.items.push(item);
+                });
+            }
+
+            createDots() {
+                this.videos.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'slider__dot';
+                    dot.setAttribute('role', 'tab');
+                    dot.setAttribute('aria-label', `Przejdź do slajdu ${index + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    this.dotsContainer.appendChild(dot);
+                });
+            }
+
+            bindEvents() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+
+                // Touch/swipe support
+                let startX = 0;
+                let startY = 0;
+                let isDragging = false;
+
+                this.track.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                    isDragging = true;
+                });
+
+                this.track.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                });
+
+                this.track.addEventListener('touchend', (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+
+                    const endX = e.changedTouches[0].clientX;
+                    const endY = e.changedTouches[0].clientY;
+                    const diffX = startX - endX;
+                    const diffY = startY - endY;
+
+                    // Only trigger if horizontal swipe is more significant than vertical
+                    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                        if (diffX > 0) {
+                            this.nextSlide();
+                        } else {
+                            this.prevSlide();
+                        }
+                    }
+                });
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+
+                // Play button clicks
+                this.track.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('slider__play-button')) {
+                        const videoId = e.target.dataset.videoId;
+                        this.loadVideo(e.target.closest('.slider__item'), videoId);
+                    }
+                });
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const videoId = entry.target.querySelector('.slider__play-button').dataset.videoId;
+                            this.loadVideo(entry.target, videoId);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                this.items.forEach(item => observer.observe(item));
+            }
+
+            loadVideo(item, videoId) {
+                if (this.loadedVideos.has(videoId)) return;
+
+                const iframe = item.querySelector('.slider__iframe');
+                const thumbnail = item.querySelector('.slider__thumbnail');
+                const playButton = item.querySelector('.slider__play-button');
+
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1`;
+                iframe.classList.add('slider__iframe--active');
+                thumbnail.style.opacity = '0';
+                playButton.style.display = 'none';
+
+                this.loadedVideos.add(videoId);
+            }
+
+            goToSlide(index) {
+                if (this.isAnimating || index === this.currentIndex) return;
+                
+                this.currentIndex = index;
+                this.updateSlider();
+            }
+
+            prevSlide() {
+                if (this.isAnimating) return;
+                
+                this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.videos.length - 1;
+                this.updateSlider();
+            }
+
+            nextSlide() {
+                if (this.isAnimating) return;
+                
+                this.currentIndex = this.currentIndex < this.videos.length - 1 ? this.currentIndex + 1 : 0;
+                this.updateSlider();
+            }
+
+            updateSlider() {
+                this.isAnimating = true;
+                
+                const itemWidth = this.items[0].offsetWidth + 20; // width + margin
+                const translateX = -this.currentIndex * itemWidth;
+                
+                this.track.style.transform = `translateX(${translateX}px)`;
+                
+                // Update dots
+                document.querySelectorAll('.slider__dot').forEach((dot, index) => {
+                    dot.classList.toggle('slider__dot--active', index === this.currentIndex);
+                });
+
+                // Update navigation buttons
+                this.prevBtn.classList.toggle('slider__nav--disabled', this.currentIndex === 0);
+                this.nextBtn.classList.toggle('slider__nav--disabled', this.currentIndex === this.videos.length - 1);
+
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, 300);
+            }
+        }
+
+        // Initialize slider when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new YouTubeSlider();
+        });
+    </script>
+</body>
+</html>
+

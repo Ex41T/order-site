@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patryk Bobrowski — Portfolio</title>
+  <meta name="description" content="Films, Graphics & AI in creative harmony — Patryk Bobrowski." />
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#0b0b0f">
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&family=Roboto:wght@100..900&family=Sansation:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- JS (defer) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <!-- YouTube IFrame Player API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- Preload hero video for faster LCP -->
+  <link rel="preload" as="video" href="../media/reklama.mp4" type="video/mp4">
+  
+  <!-- Preload first YouTube videos for faster loading -->
+  <link rel="preload" as="document" href="https://www.youtube.com/embed/uAvKsVxWVwI">
+  <link rel="preload" as="document" href="https://www.youtube.com/embed/jA0rw3rDNxY">
+  <link rel="preload" as="document" href="https://www.youtube.com/embed/T44hbbAmIxU">
+
+  <noscript>
+    <style>
+      .particles-canvas,.hub-gradient-layer,.liquid-bg{display:none!important}
+    </style>
+  </noscript>
+</head>
+<body>
+  <a class="skip-link" href="#start"></a>
+
+  <!-- BACKGROUND -->
+
+  <canvas class="particles-canvas" id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="hub-gradient-layer" aria-hidden="true"></div>
+  <div class="liquid-bg" aria-hidden="true">
+    <div class="gradient-orb orb-1" aria-hidden="true"></div>
+    <div class="gradient-orb orb-2" aria-hidden="true"></div>
+    <div class="gradient-orb orb-3" aria-hidden="true"></div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="nav-glass site-header" role="banner">
+    <div class="nav-container nav">
+      <a class="logo-liquid nav__brand" href="/en/index.html" aria-label="Home — Patryk Bobrowski">
+        <span class="logo-text">Patryk Bobrowski</span>
+      </a>
+
+      <!-- DESKTOP MENU -->
+      <div class="nav__links nav__links--desktop">
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#portfolio">Portfolio</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </div>
+
+      <!-- MOBILE MENU (burger) -->
+      <details class="nav__mobile">
+        <summary class="nav__toggle" aria-label="Open menu">
+          <span class="nav__burger" aria-hidden="true"><span></span></span>
+          <span class="sr-only">Menu</span>
+        </summary>
+
+        <div class="nav__overlay" aria-hidden="true"></div>
+
+        <nav class="nav__panel" role="menu" aria-label="Mobile menu">
+          <button class="nav__close" type="button" aria-label="Close menu">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+
+
+          <div class="lang-switch lang-switch--mobile" role="group" aria-label="Language">
+            <a href="/" lang="pl">PL</a>
+            <span aria-hidden="true">·</span>
+            <a href="/en/index.html" lang="en">EN</a>
+          </div>
+          <a role="menuitem" href="#start">Start</a>
+          <a role="menuitem" href="#about">About</a>
+          <a role="menuitem" href="#portfolio">Portfolio</a>
+          <a role="menuitem" href="#contact">Contact</a>
+        </nav>
+      </details>
+    </div>
+    <div class="lang-switch">
+      <a href="/" lang="pl">PL</a> | <a href="en/index.html" lang="en">EN</a>
+    </div>
+  </header>
+
+  <main id="start" role="main">
+
+    <!-- HERO -->
+    <section class="hero-section section" aria-labelledby="hero-title">
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <h1 id="hero-title" class="hero-title">
+            <span class="title-line">Create Visions</span>
+            <span class="title-line liquid-text">From Pixels and Algorithms</span>
+          </h1>
+          <p class="hero-subtitle subtitle-animated">
+            Films &amp; Graphics and AI in creative harmony
+          </p>
+          <div class="hero-cta">
+            <a class="btn-primary sweepable" href="#portfolio">Projects</a>
+            <a class="btn-secondary sweepable" href="#contact">Contact</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="video-container-hero">
+            <video id="hero-video" playsinline preload="auto" aria-label="Preview video (portfolio)" controls controlslist="nodownload" poster="/img/hero-poster.jpg">
+              <source src="../media/reklama.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="video-controls-overlay" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about-section section" aria-labelledby="about-title">
+      <div class="container about-content-revolutionary">
+        
+        <!-- Awatar (NOWE KLASY .holo) -->
+        <div class="about-visual-quantum">
+          <div class="holo" role="img" aria-label="Patryk Bobrowski – zdjęcie profilowe">
+            <span class="holo__rings" aria-hidden="true"></span>
+            <figure class="holo__photo">
+              <img src="../img/sigmasior.jpg" alt="Patryk Bobrowski" loading="lazy" width="512" height="512">
+            </figure>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="about-text-revolutionary">
+          <div class="about-description-pro glass-card">
+            <h2 id="about-title" class="greeting-massive">Hi!</h2>
+            <span class="apple-text">
+              I'm a young, energetic video editor and graphic designer with a passion for artificial intelligence, who will bring your work to life and take it to a completely new level. I'll make your materials become viral reels on YouTube Shorts, Instagram Reels or TikTok, attracting attention and engaging viewers. I work with Adobe Premiere Pro and Adobe After Effects, using script automation and advanced SEO optimization techniques, so your content reaches wide audiences and maintains lasting interest online. If you want your project to be dynamic, professional and stand out from the competition, I invite you to collaborate — together we'll create content that will delight and move your community.
+            </span>
+          </div>
+
+          <!-- 3 feature cards -->
+          <div class="skills-infographics">
+            <article class="infographic-card neo-hover" aria-label="Video editing">
+              <div class="infographic-icon" aria-hidden="true"><i class="fas fa-video"></i></div>
+              <div class="infographic-content">
+                <h3>Video Editing</h3>
+                <p>Premiere, After Effects</p>
+              </div>
+            </article>
+            <article class="infographic-card neo-hover" aria-label="Graphic design">
+              <div class="infographic-icon" aria-hidden="true"><i class="fas fa-palette"></i></div>
+              <div class="infographic-content">
+                <h3>Graphics</h3>
+                <p>Photoshop</p>
+              </div>
+            </article>
+            <article class="infographic-card neo-hover" aria-label="AI">
+              <div class="infographic-icon" aria-hidden="true"><i class="fas fa-brain"></i></div>
+              <div class="infographic-content">
+                <h3>AI</h3>
+                <p>Perplexity, Kling, Cursor</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolio-section section" aria-labelledby="portfolio-title">
+      <header class="section-header">
+        <h2 id="portfolio-title" class="section-title">PORTFOLIO</h2>
+        <div class="title-decoration" aria-hidden="true"></div>
+      </header>
+
+      <div class="portfolio-slider-container">
+        <button class="portfolio-arrow left" type="button" aria-label="Previous"><i class="fa-solid fa-angles-left"></i></button>
+
+        <!-- Slider wrapper -->
+        <div class="portfolio-slider">
+          <div class="portfolio-track">  <!-- 17 cards -->
+            <article class="portfolio-item portfolio-video active">
+              <div class="youtube-container" data-video-id="uAvKsVxWVwI">
+                <iframe 
+                  src="https://www.youtube.com/embed/uAvKsVxWVwI?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                  title="iscrev 1_film"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="eager">
+                </iframe>
+              </div>
+              <h3 class="video-title">iscrev 1_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="jA0rw3rDNxY">
+                <iframe 
+                  src="https://www.youtube.com/embed/jA0rw3rDNxY?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                  title="iscrev 2_film"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="eager">
+                </iframe>
+              </div>
+              <h3 class="video-title">iscrev 2_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="T44hbbAmIxU">
+                  <iframe 
+                    src="https://www.youtube.com/embed/T44hbbAmIxU?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="iscrev 3_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">iscrev 3_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="JvMJ3tRFjb8">
+                  <iframe 
+                    src="https://www.youtube.com/embed/JvMJ3tRFjb8?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="iscrev 4_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">iscrev 4_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="_isuZRmbA-0">
+                  <iframe 
+                    src="https://www.youtube.com/embed/_isuZRmbA-0?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="iscrev 5_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">iscrev 5_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="JX7CB-0vY9U">
+                  <iframe 
+                    src="https://www.youtube.com/embed/JX7CB-0vY9U?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="iscrev 6_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">iscrev 6_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="VUc09CIQZHo">
+                  <iframe 
+                    src="https://www.youtube.com/embed/VUc09CIQZHo?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="iscrev 7_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">iscrev 7_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video aspect-16-9">
+              <div class="youtube-container" data-video-id="-yEBfohUgpU">
+                <iframe 
+                  src="https://www.youtube.com/embed/-yEBfohUgpU?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                  title="iscrev 8_film169"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="eager">
+                </iframe>
+              </div>
+              <h3 class="video-title">iscrev 8_film169</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video aspect-16-9">
+              <div class="youtube-container" data-video-id="ieC5mFuB9PQ">
+                <iframe 
+                  src="https://www.youtube.com/embed/ieC5mFuB9PQ?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                  title="iscrev 9_film169"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="eager">
+                </iframe>
+              </div>
+              <h3 class="video-title">iscrev 9_film169</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="NsQg8y5WrEs">
+                  <iframe 
+                    src="https://www.youtube.com/embed/NsQg8y5WrEs?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="Memoonte 9_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">Memoonte 9_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="vhAD6b8ui-Y">
+                  <iframe 
+                    src="https://www.youtube.com/embed/vhAD6b8ui-Y?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="Memoonte 11_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">Memoonte 11_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="DefN84Im7UU">
+                  <iframe 
+                    src="https://www.youtube.com/embed/DefN84Im7UU?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="aiThenos 12_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">aiThenos 12_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="SFkLBaFWcGw">
+                  <iframe 
+                    src="https://www.youtube.com/embed/SFkLBaFWcGw?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="aiThenos 13_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">aiThenos 13_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="Y6vI3l4zomM">
+                  <iframe 
+                    src="https://www.youtube.com/embed/Y6vI3l4zomM?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="aiThenos 14_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">aiThenos 14_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="PUtsLJQWaFQ">
+                  <iframe 
+                    src="https://www.youtube.com/embed/PUtsLJQWaFQ?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="aiThenos 15_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">aiThenos 15_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="R_fQCIZOfvU">
+                  <iframe 
+                    src="https://www.youtube.com/embed/R_fQCIZOfvU?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="aiThenos 16_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">aiThenos 16_film</h3>
+            </article>
+
+            <article class="portfolio-item portfolio-video">
+              <div class="youtube-container" data-video-id="sVZXze7p6TU">
+                  <iframe 
+                    src="https://www.youtube.com/embed/sVZXze7p6TU?autoplay=0&controls=1&modestbranding=0&rel=0&showinfo=0&playsinline=1&enablejsapi=1&mute=1&cc_load_policy=0&iv_load_policy=3&fs=0&disablekb=1&controls=1&loop=0&start=0&end=0"
+                    title="iscrev 17_film"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                  <button class="youtube-play-button" type="button" aria-label="Play video">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                  </button>
+              </div>
+              <h3 class="video-title">iscrev 17_film</h3>
+            </article>
+          </div>
+        </div>
+        <button class="portfolio-arrow right" type="button" aria-label="Next"><i class="fa-solid fa-angles-right"></i></button>
+
+        <!-- 17 dots -->
+        <div class="portfolio-navigation" role="tablist" aria-label="Portfolio navigation">
+          <button class="nav-dot active" role="tab" aria-label="Slide 1"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 2"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 3"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 4"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 5"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 6"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 7"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 8"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 9"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 10"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 11"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 12"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 13"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 14"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 15"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 16"></button>
+          <button class="nav-dot" role="tab" aria-label="Slide 17"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section section" aria-labelledby="contact-title">
+      <header class="section-header">
+        <h2 id="contact-title" class="section-title">CONTACT</h2>
+        <div class="title-decoration" aria-hidden="true"></div>
+      </header>
+
+      <div class="container contact-content contact--stack">
+        <div class="contact-info">
+          <div class="skills-infographics">
+            <article class="infographic-card">
+              <div class="infographic-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>
+              <div class="infographic-content">
+                <h3>E-mail</h3>
+                <p><a href="mailto:supertrewi@gmail.com">supertrewi@gmail.com</a></p>
+              </div>
+            </article>
+            <article class="infographic-card">
+              <div class="infographic-icon" aria-hidden="true"><i class="fas fa-phone"></i></div>
+              <div class="infographic-content">
+                <h3>Phone</h3>
+                <p><a href="tel:+48573311007">+48 573 311 007</a></p>
+              </div>
+            </article>
+            <article class="infographic-card">
+              <div class="infographic-icon" aria-hidden="true"><i class="fab fa-facebook"></i></div>
+              <div class="infographic-content">
+                <h3>Facebook</h3>
+                <p><a href="https://www.facebook.com/profile.php?id=100007837713621" target="_blank" rel="noopener noreferrer">
+                  <strong>Patryk Bobrowski</strong>
+                </a></p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- form -->
+        <form class="contact-form glass-card" action="https://formspree.io/f/mwpqyqzn" method="post" novalidate>
+          <div class="form-group">
+            <label class="sr-only" for="name">Full name</label>
+            <input id="name" name="name" type="text" placeholder="Full name" required autocomplete="name" inputmode="text">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="email">Your e-mail</label>
+            <input id="email" name="email" type="email" placeholder="Your e-mail" required autocomplete="email" inputmode="email">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="message">Message</label>
+            <textarea id="message" name="message" rows="6" placeholder="Message" required></textarea>
+          </div>
+
+          <div class="form-consent">
+            <label class="consent-control">
+              <input type="checkbox" id="consent" name="consent" required aria-describedby="consent-desc">
+              <span class="checkmark" aria-hidden="true"></span>
+              <span class="consent-block" id="consent-desc">
+                <span class="consent-text">I accept the privacy policy</span>
+                <a class="consent-link" href="/en/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              </span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <button class="btn-primary sweepable" type="submit">Send message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    © <span id="year"></span> Patryk Bobrowski. All rights reserved.
+    <span class="sep" aria-hidden="true"> · </span><a class="nav-link" href="/en/terms.html">Terms</a>
+    <span class="sep" aria-hidden="true"> · </span><a class="nav-link" href="/en/privacy.html">Privacy</a>
+    <span class="sep" aria-hidden="true"> · </span><a class="nav-link" href="/en/cookies-settings.html">Cookie settings</a>
+  </footer>
+
+  <!-- JS -->
+  <script src="../scripts/app.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // year in footer
+      const y = document.getElementById('year'); 
+      if (y) y.textContent = new Date().getFullYear();
+
+      // sticky nav
+      const header = document.querySelector('.nav-glass');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 10) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      });
+
+      // 🔹 Block video download UI
+      document.querySelectorAll("video").forEach(v => {
+        v.setAttribute("controlsList", "nodownload");
+        v.addEventListener("contextmenu", e => e.preventDefault());
+      });
+    });
+  </script>
+</body>
+</html>
