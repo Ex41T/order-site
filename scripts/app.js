@@ -978,19 +978,38 @@
 
   // ---------- Performance detection ----------
   function isLowEndDevice() {
-    // Wykryj słabsze urządzenia
+    // Wykryj słabsze urządzenia - NAPRAWIONE
     const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isFirefox = /Firefox/i.test(navigator.userAgent);
     const isLowMemory = navigator.hardwareConcurrency <= 2;
     const isSlowConnection = navigator.connection && navigator.connection.effectiveType && 
                            ['slow-2g', '2g', '3g'].includes(navigator.connection.effectiveType);
     
-    return isMobile || isFirefox || isLowMemory || isSlowConnection;
+    // iPhone 13 i nowsze to nowoczesne urządzenia - nie traktuj jako low-end
+    const isModerniPhone = /iPhone.*OS (1[5-9]|[2-9][0-9])/i.test(navigator.userAgent);
+    const isModernAndroid = /Android.*Chrome\/[8-9][0-9]/i.test(navigator.userAgent);
+    
+    // Specjalne wykrywanie iPhone 13+ (iOS 15+)
+    const isiPhone13Plus = /iPhone.*OS (1[5-9]|[2-9][0-9])/i.test(navigator.userAgent);
+    
+    // Firefox na nowoczesnych urządzeniach też nie jest low-end
+    const isModernFirefox = isFirefox && (isModerniPhone || isModernAndroid);
+    
+    // Tylko rzeczywiście słabe urządzenia
+    return (isLowMemory || isSlowConnection) && !isModerniPhone && !isModernAndroid && !isModernFirefox;
   }
 
   // ---------- Boot ----------
   document.addEventListener('DOMContentLoaded', () => {
     const lowEnd = isLowEndDevice();
+    
+    // Debug info
+    console.log('Device detection:', {
+      userAgent: navigator.userAgent,
+      isLowEnd: lowEnd,
+      hardwareConcurrency: navigator.hardwareConcurrency,
+      connection: navigator.connection?.effectiveType
+    });
     
     // Podstawowe funkcje zawsze
     initMobileNav();
@@ -1000,9 +1019,11 @@
 
     // Funkcje wymagające więcej zasobów - tylko na lepszych urządzeniach
     if (!lowEnd) {
+      console.log('Loading full portfolio slider');
       initHeroVideo();
       initPortfolioSlider();
     } else {
+      console.log('Loading simple portfolio slider');
       // Uproszczona wersja dla słabszych urządzeń
       initSimpleHero();
       initSimplePortfolio();
