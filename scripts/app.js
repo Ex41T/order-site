@@ -1003,12 +1003,15 @@
   document.addEventListener('DOMContentLoaded', () => {
     const lowEnd = isLowEndDevice();
     
-    // Debug info
+    // Debug info - ULEPSZONE
     console.log('Device detection:', {
       userAgent: navigator.userAgent,
       isLowEnd: lowEnd,
       hardwareConcurrency: navigator.hardwareConcurrency,
-      connection: navigator.connection?.effectiveType
+      connection: navigator.connection?.effectiveType,
+      isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+      isFirefox: /Firefox/i.test(navigator.userAgent),
+      isModerniPhone: /iPhone.*OS (1[5-9]|[2-9][0-9])/i.test(navigator.userAgent)
     });
     
     // Podstawowe funkcje zawsze
@@ -1018,12 +1021,15 @@
     initContactForm();
 
     // Funkcje wymagające więcej zasobów - tylko na lepszych urządzeniach
-    if (!lowEnd) {
-      console.log('Loading full portfolio slider');
+    // WYMUŚ pełną wersję na iPhone 13 i nowszych
+    const isiPhone13Plus = /iPhone.*OS (1[5-9]|[2-9][0-9])/i.test(navigator.userAgent);
+    
+    if (!lowEnd || isiPhone13Plus) {
+      console.log('Loading full portfolio slider', { lowEnd, isiPhone13Plus });
       initHeroVideo();
       initPortfolioSlider();
     } else {
-      console.log('Loading simple portfolio slider');
+      console.log('Loading simple portfolio slider', { lowEnd, isiPhone13Plus });
       // Uproszczona wersja dla słabszych urządzeń
       initSimpleHero();
       initSimplePortfolio();

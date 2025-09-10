@@ -100,10 +100,15 @@ body{
 /* Mobile sections */
 @media (max-width:768px){
   .section { 
-    padding: clamp(40px,6vw,80px) 0; 
+    padding: clamp(30px,5vw,60px) 0; /* Zmniejszone padding */
   }
   .container{
     padding-inline: 1rem;
+  }
+  
+  /* Portfolio section - mniejszy padding żeby nie zasłaniało kontaktu */
+  .portfolio-section {
+    padding: clamp(20px,4vw,40px) 0;
   }
 }
 
@@ -1304,14 +1309,14 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
     .portfolio-slider {
       /* Usuń aspect-ratio na Firefox Mobile */
       aspect-ratio: none !important;
-      height: clamp(140px, 22vh, 200px) !important;
-      width: min(90vw, 280px) !important;
+      height: clamp(100px, 15vh, 140px) !important;
+      width: min(80vw, 240px) !important;
     }
     
     .portfolio-slider:has(.portfolio-item.active.landscape) {
       aspect-ratio: none !important;
-      height: clamp(160px, 25vh, 240px) !important;
-      width: min(95vw, 320px) !important;
+      height: clamp(120px, 18vh, 160px) !important;
+      width: min(85vw, 280px) !important;
     }
     
     .portfolio-video {
@@ -1963,7 +1968,7 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   gap: 10px;
   margin-top: clamp(10px, 2vw, 16px);
   position: absolute;
-  bottom: 10px;
+  bottom: -30px; /* Przenieś kropki poniżej slidera */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -2145,7 +2150,7 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
 
 /* 1) Daj miejsce na dole, żeby glow kropek nie był ucinany */
 .portfolio-slider-container{
-  --dots-clearance: 44px;        /* ile miejsca pod kropki + halo */
+  --dots-clearance: 60px;        /* więcej miejsca pod kropki + halo */
   padding-bottom: var(--dots-clearance);
   position: relative;
 }
@@ -2268,8 +2273,8 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
 /* Mobile portfolio slider - NAPRAWIONE */
 @media (max-width:768px){
   .portfolio-slider-container{
-    --slider-w: min(90vw, 280px); /* Zmniejszona szerokość */
-    --slider-h: clamp(140px, 22vh, 200px); /* Znacznie mniejsza wysokość */
+    --slider-w: min(80vw, 240px); /* Jeszcze mniejsza szerokość */
+    --slider-h: clamp(100px, 15vh, 140px); /* Jeszcze mniejsza wysokość */
     padding: 0 8px;
     overflow: visible; /* Pozwól na touch events */
   }
@@ -2287,13 +2292,13 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   }
   
   .portfolio-slider:has(.portfolio-item.active.landscape){
-    --slider-w: min(95vw, 320px);
-    --slider-h: clamp(160px, 25vh, 240px);
+    --slider-w: min(90vw, 300px);
+    --slider-h: clamp(140px, 20vh, 180px);
     /* Usuń aspect-ratio */
   }
   
   .portfolio-item{
-    --card-w: clamp(140px, 40vw, 200px); /* Znacznie mniejsze karty */
+    --card-w: clamp(100px, 30vw, 160px); /* Jeszcze mniejsze karty */
     flex: 0 0 var(--card-w);
     height: 100%;
   }
@@ -2310,7 +2315,7 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   .portfolio-arrow.right{ right: 4px; }
   
   .portfolio-navigation{
-    bottom: 15px;
+    bottom: -25px; /* Kropki poniżej slidera na mobile */
     gap: 6px;
   }
   
