@@ -1304,14 +1304,14 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
     .portfolio-slider {
       /* Usuń aspect-ratio na Firefox Mobile */
       aspect-ratio: none !important;
-      height: clamp(180px, 30vh, 280px) !important;
-      width: min(100vw, 320px) !important;
+      height: clamp(140px, 22vh, 200px) !important;
+      width: min(90vw, 280px) !important;
     }
     
     .portfolio-slider:has(.portfolio-item.active.landscape) {
       aspect-ratio: none !important;
-      height: clamp(200px, 35vh, 320px) !important;
-      width: min(100vw, 380px) !important;
+      height: clamp(160px, 25vh, 240px) !important;
+      width: min(95vw, 320px) !important;
     }
     
     .portfolio-video {
@@ -2268,14 +2268,14 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
 /* Mobile portfolio slider - NAPRAWIONE */
 @media (max-width:768px){
   .portfolio-slider-container{
-    --slider-w: min(100vw, 320px);
-    --slider-h: clamp(180px, 30vh, 280px); /* Zmniejszona wysokość */
+    --slider-w: min(90vw, 280px); /* Zmniejszona szerokość */
+    --slider-h: clamp(140px, 22vh, 200px); /* Znacznie mniejsza wysokość */
     padding: 0 8px;
     overflow: visible; /* Pozwól na touch events */
   }
   
   .portfolio-slider{
-    gap: 12px;
+    gap: 8px; /* Mniejszy gap */
     /* Usuń aspect-ratio na mobile - powoduje problemy w Firefox */
     height: var(--slider-h);
     width: var(--slider-w);
@@ -2287,13 +2287,13 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   }
   
   .portfolio-slider:has(.portfolio-item.active.landscape){
-    --slider-w: min(100vw, 380px);
-    --slider-h: clamp(200px, 35vh, 320px);
+    --slider-w: min(95vw, 320px);
+    --slider-h: clamp(160px, 25vh, 240px);
     /* Usuń aspect-ratio */
   }
   
   .portfolio-item{
-    --card-w: clamp(180px, 55vw, 260px); /* Mniejsze karty */
+    --card-w: clamp(140px, 40vw, 200px); /* Znacznie mniejsze karty */
     flex: 0 0 var(--card-w);
     height: 100%;
   }
