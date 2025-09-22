@@ -14,10 +14,34 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <!-- Preload critical resources -->
-  <link rel="preload" href="./styles/style.css" as="style">
-  <link rel="preload" href="./scripts/app.js" as="script">
+   
+  <!-- Critical CSS inline -->
+  <style>
+    /* Critical above-the-fold CSS */
+    :root{
+      --bg-0:#040810; --bg-1:#050a15; --bg-2:#060c18;
+      --glass:#11223f; --glass-2:#0f1e39; --border:rgba(0,255,255,.18);
+      --primary:#00d5ff; --primary-2:#1ee3ff; --accent:#1affd5; --link:#7fd3ff;
+      --text:#e7f1ff; --muted:#a8bed8;
+      --font:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+      --step-0: clamp(1rem,.95rem + .35vw,1.125rem);
+      --step-1: clamp(1.25rem,1.1rem + .8vw,1.6rem);
+      --step-2: clamp(1.8rem,1.4rem + 1.6vw,2.6rem);
+      --step-3: clamp(2.6rem,1.9rem + 2.4vw,3.6rem);
+      --step-4: clamp(3.2rem,2.4rem + 3.4vw,5rem);
+      --radius:18px; --gap:.9rem; --bp-sm:480px; --bp-md:768px; --bp-lg:1120px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0;overflow-x:hidden;color-scheme:dark}
+    body{font-family:var(--font);font-size:var(--step-0);line-height:1.6;color:var(--text);min-height:100vh;min-height:100dvh;background:linear-gradient(180deg,#040810,#050a15 50%,#060c18)}
+    .nav-glass{position:sticky;top:0;z-index:50;background:rgba(4,8,16,.95);backdrop-filter:saturate(130%) blur(14px);border-bottom:1px solid var(--border)}
+    .nav-container{display:flex;align-items:center;justify-content:space-between;height:8vh;max-width:var(--bp-lg);margin:0 auto;padding-inline:clamp(2rem,8vw,4rem);position:relative}
+    .hero-section{padding-bottom:clamp(24px,6vw,64px)}
+    .hero-title{margin:0 0 .6rem;font-size:var(--step-3);line-height:1.4}
+    .container{max-width:var(--bp-lg);margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+    .section{padding:clamp(64px,8vw,120px) 0}
+    @media(max-width:768px){.section{padding:clamp(30px,5vw,60px) 0}.container{padding-inline:1rem}}
+  </style>
 
   <!-- Favicons -->
   <link rel="icon" href="./favicon.ico" sizes="any">
@@ -28,10 +52,12 @@
   <!-- Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&family=Roboto:wght@100..900&family=Sansation:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></noscript>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="./styles/style.css">
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="./styles/style.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="./styles/style.css"></noscript>
 
   <!-- JS (defer) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -188,7 +214,7 @@
           <div class="holo" role="img" aria-label="Patryk Bobrowski – zdjęcie profilowe">
             <span class="holo__rings" aria-hidden="true"></span>
             <figure class="holo__photo">
-              <img src="./img/sigmasior.jpg" alt="Patryk Bobrowski" loading="lazy" width="512" height="512">
+              <img src="./img/sigmasior.jpg" alt="Patryk Bobrowski - zdjęcie profilowe" loading="lazy" width="512" height="512" fetchpriority="high">
             </figure>
           </div>
         </div>
@@ -254,7 +280,9 @@
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen
-                  loading="eager">
+                  loading="eager"
+                  width="320"
+                  height="568">
                 </iframe>
               </div>
               <h3 class="video-title">iscrev 1_film</h3>

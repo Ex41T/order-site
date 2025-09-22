@@ -159,10 +159,15 @@
 
   // ---------- YouTube Portfolio slider (zoptymalizowany) ----------
   function initPortfolioSlider() {
+    console.log('🎬 Initializing FULL portfolio slider');
     const container = document.querySelector('.portfolio-slider-container');
     const slider    = container?.querySelector('.portfolio-slider');
     const track     = container?.querySelector('.portfolio-track');
-    if (!container || !slider || !track) return;
+    if (!container || !slider || !track) {
+      console.error('❌ Portfolio slider elements not found');
+      return;
+    }
+    console.log('✅ Portfolio slider elements found');
   
     const prev = container.querySelector('.portfolio-arrow.left');
     const next = container.querySelector('.portfolio-arrow.right');
@@ -353,13 +358,25 @@
   
     prev?.addEventListener('click', () => go(-1));
     next?.addEventListener('click', () => go(+1));
+    
+    // Touch events dla strzałek (mobile)
+    prev?.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      go(-1);
+    }, { passive: false });
+    
+    next?.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      go(+1);
+    }, { passive: false });
   
-    // drag/swipe
+    // drag/swipe - NAPRAWIONE z touch events
     let startX=0, dx=0, dragging=false;
     
+    // Pointer events (desktop)
     slider.addEventListener('pointerdown', e => {
       dragging = true; startX = e.clientX; dx = 0;
-      slider.setPointerCapture(e.pointerId);
+      if (slider.setPointerCapture) slider.setPointerCapture(e.pointerId);
       track.style.transition = 'none';
     });
     
@@ -370,6 +387,7 @@
       // Direct update for maximum performance
       track.style.transform = `translate3d(${tx + dx * 0.6}px, 0, 0)`;
     });
+    
     slider.addEventListener('pointerup', () => {
       if (!dragging) return;
       dragging = false;
@@ -382,6 +400,42 @@
         recalcTranslateFor(current, true);
       }
     });
+    
+    // Touch events (mobile) - FALLBACK
+    slider.addEventListener('touchstart', e => {
+      console.log('👆 Touch start detected');
+      if (e.touches.length !== 1) return;
+      dragging = true; 
+      startX = e.touches[0].clientX; 
+      dx = 0;
+      track.style.transition = 'none';
+      e.preventDefault();
+    }, { passive: false });
+    
+    slider.addEventListener('touchmove', e => {
+      if (!dragging || e.touches.length !== 1) return;
+      dx = e.touches[0].clientX - startX;
+      
+      // Direct update for maximum performance
+      track.style.transform = `translate3d(${tx + dx * 0.6}px, 0, 0)`;
+      e.preventDefault();
+    }, { passive: false });
+    
+    slider.addEventListener('touchend', e => {
+      if (!dragging) return;
+      console.log('👆 Touch end detected, dx:', dx);
+      dragging = false;
+      track.style.transition = '';
+      if (Math.abs(dx) > 25) {
+        // dx < 0 oznacza przeciągnięcie w lewo = następny slajd
+        // dx > 0 oznacza przeciągnięcie w prawo = poprzedni slajd
+        console.log('🎯 Swipe detected, going:', dx < 0 ? 'next' : 'prev');
+        go(dx < 0 ? 1 : -1);
+      } else {
+        console.log('🔄 Returning to current position');
+        recalcTranslateFor(current, true);
+      }
+    }, { passive: true });
   
     // wheel snap
     let scrollTimer=null;
@@ -1021,15 +1075,17 @@
     initContactForm();
 
     // Funkcje wymagające więcej zasobów - tylko na lepszych urządzeniach
-    // WYMUŚ pełną wersję na iPhone 13 i nowszych
+    // WYMUŚ pełną wersję na WSZYSTKICH urządzeniach mobilnych
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isiPhone13Plus = /iPhone.*OS (1[5-9]|[2-9][0-9])/i.test(navigator.userAgent);
     
-    if (!lowEnd || isiPhone13Plus) {
-      console.log('Loading full portfolio slider', { lowEnd, isiPhone13Plus });
+    // ZAWSZE używaj pełnej wersji na mobile - simple version nie działa
+    if (!lowEnd || isMobile) {
+      console.log('Loading full portfolio slider', { lowEnd, isMobile, isiPhone13Plus });
       initHeroVideo();
       initPortfolioSlider();
     } else {
-      console.log('Loading simple portfolio slider', { lowEnd, isiPhone13Plus });
+      console.log('Loading simple portfolio slider', { lowEnd, isMobile, isiPhone13Plus });
       // Uproszczona wersja dla słabszych urządzeń
       initSimpleHero();
       initSimplePortfolio();
