@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Patryk Bobrowski — Portfolio</title>
+  <meta name="description" content="Filmy, Grafiki i AI w harmonii kreatywności — Patryk Bobrowski." />
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#040810">
+  
+  <!-- Performance hints -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  
+  <!-- Critical CSS inline -->
+  <style>
+    /* CSS Variables */
+    :root {
+      --color-primary: #00d5ff;
+      --color-primary-hover: #1ee3ff;
+      --color-accent: #1affd5;
+      --color-text: #e7f1ff;
+      --color-text-muted: #a8bed8;
+      --color-bg: #040810;
+      --color-bg-secondary: #050a15;
+      --color-bg-tertiary: #060c18;
+      --color-border: rgba(0, 255, 255, 0.18);
+      --color-glass: rgba(17, 34, 63, 0.8);
+      
+      --font-family-base: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial, sans-serif;
+      --font-family-heading: "Roboto", var(--font-family-base);
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 1.875rem;
+      --font-size-4xl: 2.25rem;
+      --font-size-5xl: 3rem;
+      
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-neon: 0 0 24px rgb(0 213 255 / 0.35);
+      
+      --duration-fast: 150ms;
+      --duration-normal: 300ms;
+      --duration-slow: 500ms;
+      --easing-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Light theme support */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --color-text: #1a202c;
+        --color-text-muted: #4a5568;
+        --color-bg: #ffffff;
+        --color-bg-secondary: #f7fafc;
+        --color-bg-tertiary: #edf2f7;
+        --color-border: rgba(0, 0, 0, 0.1);
+        --color-glass: rgba(255, 255, 255, 0.8);
+      }
+    }
+    
+    /* Theme toggles */
+    [data-theme="light"] {
+      --color-text: #1a202c;
+      --color-text-muted: #4a5568;
+      --color-bg: #ffffff;
+      --color-bg-secondary: #f7fafc;
+      --color-bg-tertiary: #edf2f7;
+      --color-border: rgba(0, 0, 0, 0.1);
+      --color-glass: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* CSS Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      color-scheme: dark light;
+      scroll-behavior: smooth;
+      scroll-padding-top: 2rem;
+    }
+    
+    body {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgb(0 213 255 / 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgb(26 255 213 / 0.1) 0%, transparent 50%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    img, picture, video, canvas, svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    
+    input, button, textarea, select {
+      font: inherit;
+      color: inherit;
+    }
+    
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    ul, ol {
+      list-style: none;
+    }
+    
+    /* Skip link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: var(--color-primary);
+      color: var(--color-bg);
+      padding: 8px;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      z-index: 1000;
+      transition: top var(--duration-fast) var(--easing-ease);
+    }
+    
+    .skip-link:focus {
+      top: 6px;
+    }
+    
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin-inline: auto;
+      padding-inline: var(--space-md);
+    }
+    
+    /* Section */
+    .section {
+      padding-block: var(--space-3xl);
+    }
+    
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity var(--duration-normal) var(--easing-ease);
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--color-border);
+      border-top: 3px solid var(--color-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Navigation */
+    .nav-glass, .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--color-glass);
+      backdrop-filter: saturate(130%) blur(16px);
+      border-bottom: 1px solid var(--color-border);
+      transition: all var(--duration-normal) var(--easing-ease);
+    }
+    
+    .nav-glass.scrolled, .nav.scrolled {
+      background: var(--color-bg);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+      gap: var(--space-lg);
+    }
+    
+    .nav__brand {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    
+    .nav__menu {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+    
+    .nav__link {
+      color: var(--color-text);
+      font-weight: 500;
+      transition: color var(--duration-fast) var(--easing-ease);
+    }
+    
+    .nav__link:hover {
+      color: var(--color-primary);
+    }
+    
+    /* Mobile Menu */
+    .nav__mobile {
+      display: none;
+    }
+    
+    .nav__panel {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-lg);
+    }
+    
+    .nav__panel.active {
+      display: block;
+    }
+    
+    .nav__panel a {
+      display: block;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .nav__panel a:last-child {
+      border-bottom: none;
+    }
+    
+    /* Theme Toggle */
+    [data-theme-toggle] {
+      background: none;
+      border: none;
+      font-size: var(--font-size-lg);
+      cursor: pointer;
+      padding: var(--space-sm);
+      border-radius: var(--radius-md);
+      transition: background-color var(--duration-fast) var(--easing-ease);
+    }
+    
+    [data-theme-toggle]:hover {
+      background: var(--color-bg-secondary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      z-index: 2;
+      position: relative;
+    }
+    
+    .hero-title {
+      font-family: var(--font-family-heading);
+      font-size: var(--font-size-5xl);
+      font-weight: 700;
+      line-height: 1.2;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .hero-subtitle {
+      font-size: var(--font-size-xl);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-2xl);
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: var(--space-md) var(--space-xl);
+      font-weight: 600;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border);
+      background: var(--color-glass);
+      backdrop-filter: saturate(130%) blur(12px);
+      color: var(--color-text);
+      text-decoration: none;
+      transition: all var(--duration-fast) var(--easing-ease);
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      background: var(--color-primary);
+      color: var(--color-bg);
+      box-shadow: var(--shadow-neon);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+    }
+    
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-bg);
+      border-color: var(--color-primary);
+    }
+    
+    .btn-primary:hover {
+      background: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav__menu {
+        display: none;
+      }
+      
+      .nav__mobile {
+        display: block;
+      }
+      
+      .hero-title {
+        font-size: var(--font-size-4xl);
+      }
+      
+      .hero-subtitle {
+        font-size: var(--font-size-lg);
+      }
+      
+      .container {
+        padding-inline: var(--space-sm);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: var(--font-size-3xl);
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      
+      .loading-spinner {
+        animation: none;
+        border-top-color: var(--color-primary);
+      }
+    }
+  </style>
+
+  <!-- Favicons -->
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.json">
+  
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></noscript>
+</head>
+
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main" class="skip-link">Przejdź do głównej treści</a>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-spinner" aria-label="Ładowanie strony"></div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav-glass" role="banner">
+    <div class="container">
+      <nav class="nav-container" role="navigation" aria-label="Główna nawigacja">
+        <a href="#" class="nav__brand" aria-label="Patryk Bobrowski - Strona główna">
+          Patryk Bobrowski
+        </a>
+        
+        <div class="nav__menu">
+          <a href="#about" class="nav__link">O mnie</a>
+          <a href="#portfolio" class="nav__link">Portfolio</a>
+          <a href="#contact" class="nav__link">Kontakt</a>
+          <button data-theme-toggle aria-label="Przełącz motyw">
+            <span class="theme-icon">🌙</span>
+          </button>
+        </div>
+        
+        <div class="nav__mobile">
+          <details>
+            <summary aria-label="Otwórz menu mobilne">☰</summary>
+            <div class="nav__panel" role="menu">
+              <a href="#about" role="menuitem">O mnie</a>
+              <a href="#portfolio" role="menuitem">Portfolio</a>
+              <a href="#contact" role="menuitem">Kontakt</a>
+              <button data-theme-toggle aria-label="Przełącz motyw">
+                <span class="theme-icon">🌙</span>
+              </button>
+            </div>
+          </details>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main" role="main">
+    <!-- Hero Section -->
+    <section class="hero section" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content">
+          <h1 id="hero-title" class="hero-title">
+            Filmy, Grafiki i AI w harmonii kreatywności
+          </h1>
+          <p class="hero-subtitle">
+            Tworzę nowoczesne rozwiązania wizualne łączące tradycyjną kreatywność z najnowszymi technologiami
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="#portfolio" class="btn btn-primary">Zobacz Portfolio</a>
+            <a href="#contact" class="btn btn-secondary">Skontaktuj się</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <h2 id="about-title" class="hero-title" style="font-size: var(--font-size-4xl); text-align: center; margin-bottom: var(--space-2xl);">
+          O mnie
+        </h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+          <p style="font-size: var(--font-size-lg); color: var(--color-text-muted); margin-bottom: var(--space-lg);">
+            Jestem kreatywnym profesjonalistą specjalizującym się w tworzeniu filmów, grafik i rozwiązań AI. 
+            Łączę tradycyjne umiejętności artystyczne z najnowszymi technologiami, aby tworzyć unikalne i 
+            angażujące treści wizualne.
+          </p>
+          <p style="font-size: var(--font-size-base); color: var(--color-text-muted);">
+            Moja pasja do innowacji i dbałość o szczegóły pozwalają mi realizować projekty, które nie tylko 
+            spełniają oczekiwania klientów, ale także przekraczają je, tworząc trwałe wrażenie na odbiorcach.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section" aria-labelledby="portfolio-title">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: var(--space-3xl);">
+          <h2 id="portfolio-title" class="hero-title" style="font-size: var(--font-size-4xl); margin-bottom: var(--space-lg);">
+            Portfolio
+          </h2>
+          <p style="font-size: var(--font-size-lg); color: var(--color-text-muted);">
+            Obejrzyj moje najnowsze projekty i realizacje
+          </p>
+        </div>
+
+        <!-- Portfolio Slider -->
+        <div class="portfolio-slider-container">
+          <div class="portfolio-track">
+            <!-- Portfolio Item 1 -->
+            <div class="portfolio-item active">
+              <img src="./images/sigmasior.jpg" alt="Projekt Sigmasior" width="300" height="200" loading="lazy">
+              <h3>Projekt Sigmasior</h3>
+              <p>Nowoczesna strona internetowa z zaawansowanymi animacjami i responsywnym designem.</p>
+            </div>
+            
+            <!-- Portfolio Item 2 -->
+            <div class="portfolio-item">
+              <div class="youtube-container">
+                <iframe 
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&showinfo=0" 
+                  title="Portfolio Video 1" 
+                  width="320" 
+                  height="568" 
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <h3>Projekt Video 1</h3>
+              <p>Kreatywny film promocyjny z wykorzystaniem najnowszych technik montażu.</p>
+            </div>
+            
+            <!-- Portfolio Item 3 -->
+            <div class="portfolio-item">
+              <div class="youtube-container">
+                <iframe 
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&showinfo=0" 
+                  title="Portfolio Video 2" 
+                  width="320" 
+                  height="568" 
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <h3>Projekt Video 2</h3>
+              <p>Animowany spot reklamowy z efektami specjalnymi i dynamicznym motion design.</p>
+            </div>
+            
+            <!-- Portfolio Item 4 -->
+            <div class="portfolio-item">
+              <div class="youtube-container">
+                <iframe 
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&showinfo=0" 
+                  title="Portfolio Video 3" 
+                  width="320" 
+                  height="568" 
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <h3>Projekt Video 3</h3>
+              <p>Korporacyjny film instruktażowy z profesjonalną narracją i grafikami.</p>
+            </div>
+          </div>
+          
+          <!-- Portfolio Controls -->
+          <div class="portfolio-controls">
+            <button class="portfolio-arrow" data-portfolio-prev aria-label="Poprzedni projekt">‹</button>
+            <div class="portfolio-dots">
+              <button class="portfolio-dot active" aria-label="Projekt 1"></button>
+              <button class="portfolio-dot" aria-label="Projekt 2"></button>
+              <button class="portfolio-dot" aria-label="Projekt 3"></button>
+              <button class="portfolio-dot" aria-label="Projekt 4"></button>
+            </div>
+            <button class="portfolio-arrow" data-portfolio-next aria-label="Następny projekt">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: var(--space-3xl);">
+          <h2 id="contact-title" class="hero-title" style="font-size: var(--font-size-4xl); margin-bottom: var(--space-lg);">
+            Skontaktuj się
+          </h2>
+          <p style="font-size: var(--font-size-lg); color: var(--color-text-muted);">
+            Masz pytania? Chcesz współpracować? Napisz do mnie!
+          </p>
+        </div>
+
+        <form class="contact-form" action="#" method="POST" aria-labelledby="contact-title">
+          <div class="form-group">
+            <label for="name" class="form-label">Imię i nazwisko *</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              class="form-input" 
+              required 
+              aria-describedby="name-error"
+              autocomplete="name">
+            <div id="name-error" class="sr-only" role="alert"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" class="form-label">Adres e-mail *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              required 
+              aria-describedby="email-error"
+              autocomplete="email">
+            <div id="email-error" class="sr-only" role="alert"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="message" class="form-label">Wiadomość *</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              class="form-textarea" 
+              required 
+              aria-describedby="message-error"
+              rows="5"></textarea>
+            <div id="message-error" class="sr-only" role="alert"></div>
+          </div>
+          
+          <div class="form-checkbox">
+            <input 
+              type="checkbox" 
+              id="consent" 
+              name="consent" 
+              required
+              aria-describedby="consent-error">
+            <label for="consent">
+              Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na wiadomość. 
+              <a href="./privacy.html" target="_blank">Polityka prywatności</a>
+            </label>
+            <div id="consent-error" class="sr-only" role="alert"></div>
+          </div>
+          
+          <button type="submit" class="form-submit">
+            Wyślij wiadomość
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; <span id="year">2024</span> Patryk Bobrowski. Wszystkie prawa zastrzeżone.</p>
+        <div class="footer-links">
+          <a href="./privacy.html">Polityka prywatności</a>
+          <a href="./terms.html">Regulamin</a>
+          <a href="./cookies.html">Cookies</a>
+          <a href="./cookies-settings.html">Ustawienia cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load non-critical CSS -->
+  <link rel="stylesheet" href="./styles/style-simple.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="./styles/style-simple.css"></noscript>
+
+  <!-- Load JavaScript -->
+  <script src="./scripts/app-simple.js" defer></script>
+</body>
+</html>

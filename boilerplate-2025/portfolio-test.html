@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Slider - PROSTY TEST</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0e1a;
+      color: white;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #00d5ff;
+      margin-bottom: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      height: 700px;
+      display: flex;
+      align-items: center;
+      margin: 40px 0;
+    }
+    
+    .slider-track {
+      display: flex;
+      gap: 30px;
+      padding: 0 10%;
+      transition: transform 0.5s ease;
+      cursor: grab;
+    }
+    
+    .slider-track:active {
+      cursor: grabbing;
+    }
+    
+    .slide {
+      flex: 0 0 350px;
+      height: 620px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(0,213,255,0.3);
+      border-radius: 20px;
+      padding: 10px;
+      transition: all 0.5s ease;
+      opacity: 0.5;
+      transform: scale(0.85);
+      filter: blur(3px);
+    }
+    
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+      border-color: #00d5ff;
+      box-shadow: 0 0 30px rgba(0,213,255,0.5);
+    }
+    
+    .slide iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #00d5ff;
+      background: rgba(0,213,255,0.1);
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      background: #00d5ff;
+      transform: scale(1.1);
+    }
+    
+    .dots {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .dot.active {
+      background: #00d5ff;
+      transform: scale(1.3);
+    }
+    
+    .status {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,213,255,0.1);
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Portfolio Slider - PROSTY TEST</h1>
+    
+    <div class="slider-container">
+      <div class="slider-track" id="track">
+        <!-- Slajdy będą dodane przez JavaScript -->
+      </div>
+    </div>
+    
+    <div class="controls">
+      <button class="btn" onclick="prevSlide()">‹</button>
+      <div class="dots" id="dots"></div>
+      <button class="btn" onclick="nextSlide()">›</button>
+    </div>
+    
+    <div class="status">
+      <p id="status">Ładowanie...</p>
+    </div>
+  </div>
+
+  <script>
+    console.log('🚀 Skrypt załadowany!');
+    
+    // Dane filmów
+    const videos = [
+      'uAvKsVxWVwI',
+      'jA0rw3rDNxY', 
+      'T44hbbAmIxU',
+      'JvMJ3tRFjb8',
+      '_isuZRmbA-0'
+    ];
+    
+    let currentIndex = 0;
+    const track = document.getElementById('track');
+    const dotsContainer = document.getElementById('dots');
+    const status = document.getElementById('status');
+    
+    // Tworzenie slajdów z klonami dla pętli nieskończonej
+    // Dodaj 2 ostatnie slajdy na początku (klony)
+    for (let i = videos.length - 2; i < videos.length; i++) {
+      const slide = document.createElement('div');
+      slide.className = 'slide clone';
+      slide.innerHTML = `
+        <iframe 
+          src="https://www.youtube.com/embed/${videos[i]}?controls=1"
+          allowfullscreen>
+        </iframe>
+      `;
+      track.appendChild(slide);
+    }
+    
+    // Dodaj normalne slajdy
+    videos.forEach((videoId, index) => {
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      if (index === 0) slide.classList.add('active');
+      
+      slide.innerHTML = `
+        <iframe 
+          src="https://www.youtube.com/embed/${videoId}?controls=1"
+          allowfullscreen>
+        </iframe>
+      `;
+      
+      track.appendChild(slide);
+      
+      // Kropka
+      const dot = document.createElement('button');
+      dot.className = 'dot';
+      if (index === 0) dot.classList.add('active');
+      dot.onclick = () => goToSlide(index);
+      dotsContainer.appendChild(dot);
+    });
+    
+    // Dodaj 2 pierwsze slajdy na końcu (klony)
+    for (let i = 0; i < 2; i++) {
+      const slide = document.createElement('div');
+      slide.className = 'slide clone';
+      slide.innerHTML = `
+        <iframe 
+          src="https://www.youtube.com/embed/${videos[i]}?controls=1"
+          allowfullscreen>
+        </iframe>
+      `;
+      track.appendChild(slide);
+    }
+    
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const cloneOffset = 2; // Liczba klonów na początku
+    
+    function updateSlider() {
+      // ZAWSZE wyśrodkuj aktywny slajd - nawet na początku i końcu
+      const containerWidth = document.querySelector('.slider-container').offsetWidth;
+      const slideWidth = slides[0].offsetWidth;
+      const actualIndex = currentIndex + cloneOffset; // Przesunięcie o klony
+      const slideLeft = slides[actualIndex].offsetLeft;
+      const translateX = containerWidth / 2 - slideLeft - slideWidth / 2;
+      
+      track.style.transform = `translateX(${translateX}px)`;
+      
+      // Aktualizuj style slajdów
+      slides.forEach((slide, i) => {
+        const actualIndex = currentIndex + cloneOffset;
+        const distance = Math.abs(i - actualIndex);
+        
+        if (i === actualIndex) {
+          slide.classList.add('active');
+          slide.style.filter = 'blur(0)';
+          slide.style.opacity = '1';
+          slide.style.transform = 'scale(1)';
+        } else {
+          slide.classList.remove('active');
+          slide.style.filter = `blur(${Math.min(distance * 3, 8)}px)`;
+          slide.style.opacity = '0.5';
+          slide.style.transform = 'scale(0.85)';
+        }
+      });
+      
+      // Aktualizuj kropki
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+      
+      status.textContent = `Film ${currentIndex + 1} z ${videos.length} | Przeciągnij myszką lub użyj strzałek | PĘTLA NIESKOŃCZONA`;
+    }
+    
+    function goToSlide(index) {
+      currentIndex = index;
+      updateSlider();
+    }
+    
+    function nextSlide() {
+      currentIndex++;
+      
+      // Jeśli doszliśmy do końca, przejdź płynnie
+      if (currentIndex >= videos.length) {
+        updateSlider();
+        
+        // Po animacji, natychmiast przeskocz na początek (bez animacji)
+        setTimeout(() => {
+          track.style.transition = 'none';
+          currentIndex = 0;
+          updateSlider();
+          
+          // Przywróć animację
+          setTimeout(() => {
+            track.style.transition = 'transform 0.5s ease';
+          }, 50);
+        }, 500);
+      } else {
+        updateSlider();
+      }
+    }
+    
+    function prevSlide() {
+      currentIndex--;
+      
+      // Jeśli cofnęliśmy się za początek, przejdź płynnie
+      if (currentIndex < 0) {
+        updateSlider();
+        
+        // Po animacji, natychmiast przeskocz na koniec (bez animacji)
+        setTimeout(() => {
+          track.style.transition = 'none';
+          currentIndex = videos.length - 1;
+          updateSlider();
+          
+          // Przywróć animację
+          setTimeout(() => {
+            track.style.transition = 'transform 0.5s ease';
+          }, 50);
+        }, 500);
+      } else {
+        updateSlider();
+      }
+    }
+    
+    // Drag to scroll
+    let isDragging = false;
+    let startX = 0;
+    let startTranslate = 0;
+    
+    track.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.pageX;
+      const transform = window.getComputedStyle(track).transform;
+      startTranslate = transform !== 'none' ? parseFloat(transform.split(',')[4]) : 0;
+      track.style.transition = 'none';
+    });
+    
+    track.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const x = e.pageX;
+      const walk = x - startX;
+      track.style.transform = `translateX(${startTranslate + walk}px)`;
+    });
+    
+    track.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      track.style.transition = 'transform 0.5s ease';
+      
+      const x = e.pageX;
+      const walk = x - startX;
+      
+      if (walk < -50) nextSlide();
+      else if (walk > 50) prevSlide();
+      else updateSlider();
+    });
+    
+    track.addEventListener('mouseleave', () => {
+      if (isDragging) {
+        isDragging = false;
+        track.style.transition = 'transform 0.5s ease';
+        updateSlider();
+      }
+    });
+    
+    // Klawiatura
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+    
+    // Inicjalizacja
+    setTimeout(() => {
+      updateSlider();
+      console.log('✅ Slider gotowy!');
+    }, 100);
+  </script>
+</body>
+</html>
