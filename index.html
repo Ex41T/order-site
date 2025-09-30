@@ -66,10 +66,7 @@
   <!-- YouTube IFrame Player API -->
   <script src="https://www.youtube.com/iframe_api"></script>
 
-  <!-- Preload hero video for faster LCP -->
-  <link rel="preload" as="video" href="./media/reklama.mp4" type="video/mp4">
-  
-  <!-- Note: YouTube iframe preloading removed - 'as="document"' is not supported -->
+  <!-- Note: Video and YouTube preloading removed - causes issues on some browsers -->
 
   <noscript>
     <style>
@@ -193,7 +190,7 @@
 
         <div class="hero-card">
           <div class="video-container-hero">
-            <video id="hero-video" playsinline preload="auto" aria-label="Podgląd wideo (portfolio)" controls controlslist="nodownload" poster="./img/hero-poster.jpg">
+            <video id="hero-video" playsinline preload="auto" aria-label="Podgląd wideo (portfolio)" controls controlslist="nodownload">
               <source src="./media/reklama.mp4" type="video/mp4">
               Twoja przeglądarka nie obsługuje wideo HTML5.
             </video>
