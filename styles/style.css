@@ -79,7 +79,7 @@ html { color-scheme: dark; }
 
 body{
   font-family: var(--font);
-  font-size: var(--step-0);
+  font-size: 14px; /* Zmniejszone z 16px (default) - wszystko będzie ~12% mniejsze */
   line-height: 1.6;
   color: var(--text);
   min-height: 100vh; /* Fallback dla starszych przeglądarek */
