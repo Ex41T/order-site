@@ -1,0 +1,115 @@
+﻿/* ==========================================================================
+   FORMS / BUTTON LINKS
+   ========================================================================== */
+
+.contact-form .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,18px); }
+.contact-form .form-group--full{ grid-column: 1 / -1; }
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea{
+  width:100%; padding:14px 16px; border:1px solid var(--border); border-radius:14px;
+  background:rgba(255,255,255,.04); color:var(--text); outline:none;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: inset 0 0 0 2px rgba(0,213,255,0);
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder{ color:rgba(231,241,255,.65); }
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus{
+  border-color:rgba(0,213,255,.45); background:rgba(255,255,255,.06);
+  box-shadow:0 0 0 3px rgba(0,213,255,.12), inset 0 0 0 2px rgba(0,213,255,.35);
+}
+.contact-form textarea{ min-height:clamp(200px,26vh,320px); resize:vertical; line-height:1.5; }
+.form-consent{ margin:8px 0 14px; display:flex; align-items:flex-start; justify-content:flex-start; }
+.contact-form .form-actions{ display:flex; justify-content:center; padding-top:6px; }
+.contact-form .form-actions .btn-primary{ min-width:220px; }
+
+/* link buttons */
+a.btn-primary, a.btn-secondary{
+  display:inline-block; padding:.9rem 1.8rem; border-radius:12px; font-weight:600;
+  text-transform:uppercase; letter-spacing:.5px; text-align:center; position:relative; overflow:hidden;
+  background:rgba(0,20,40,.7); border:1px solid rgba(0,213,255,.7); color:#00d5ff;
+  box-shadow:0 0 8px rgba(0,213,255,.6), 0 0 20px rgba(0,213,255,.3); transition: all .3s ease; text-decoration:none;
+}
+a.btn-primary:hover, a.btn-secondary:hover{
+  background:rgba(0,40,60,.9); border-color:#00ffff; color:#00ffff;
+  box-shadow:0 0 12px rgba(0,255,255,.9), 0 0 30px rgba(0,255,255,.6); transform: translateY(-2px) scale(1.03);
+}
+a.btn-primary:active, a.btn-secondary:active{ transform: translateY(1px) scale(.97); box-shadow:0 0 6px rgba(0,213,255,.6); }
+
+/* submit variant */
+.contact-form.glass-card{
+  background:rgba(0,20,40,.7); border:1px solid rgba(0,213,255,.6); border-radius:16px; padding:2rem;
+  box-shadow:0 0 12px rgba(0,213,255,.6), 0 0 30px rgba(0,213,255,.3); backdrop-filter: blur(24px); transition: all .3s ease;
+}
+.contact-form.glass-card:hover{ border-color:#00ffff; box-shadow:0 0 16px rgba(0,255,255,.9), 0 0 40px rgba(0,255,255,.6); }
+.contact-form button.btn-primary{
+  display:inline-block; width:100%; padding:1rem 2rem; margin-top:1rem; border-radius:12px;
+  font-weight:600; font-size:1.05rem; letter-spacing:.5px; cursor:pointer;
+  border:1px solid rgba(0,213,255,.8); background:rgba(0,25,50,.85); color:#00d5ff;
+  box-shadow:0 0 8px rgba(0,213,255,.7), 0 0 20px rgba(0,213,255,.4); transition: all .3s ease;
+}
+.contact-form button.btn-primary:hover{
+  background:rgba(0,50,80,.95); color:#00ffff; border-color:#00ffff;
+  box-shadow:0 0 12px rgba(0,255,255,.9), 0 0 30px rgba(0,255,255,.6); transform: translateY(-2px) scale(1.03);
+}
+.contact-form button.btn-primary:active{ transform: translateY(1px) scale(.96); box-shadow:0 0 6px rgba(0,213,255,.6); }
+
+/* ==========================================================================
+   FORMULARZ - LOADING SPINNER I KOMUNIKATY
+   ========================================================================== */
+
+/* Loading spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Form messages */
+.form-message {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+/* WyĹ‚Ä…cz podkreĹ›lenie pod tytuĹ‚ami w sekcjach PORTFOLIO i KONTAKT */
+#portfolio .title-decoration,
+#contact  .title-decoration{
+  display: none;
+}
+
+/* Na wszelki wypadek â€” zero podkreĹ›lenia samego tytuĹ‚u */
+#portfolio .section-title,
+#contact  .section-title,
+#portfolio .section-header a,
+#contact  .section-header a{
+  text-decoration: none !important;
+  border-bottom: 0 !important;
+}
+

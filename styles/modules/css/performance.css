@@ -1,0 +1,166 @@
+﻿/* ==========================================================================
+   REDUCED MOTION / SAFARI FALLBACK
+   ========================================================================== */
+
+@media (prefers-reduced-motion:reduce){
+  *,:before,:after{ animation:none !important; transition:none !important; }
+  .greeting-massive{ animation:none; }
+}
+
+/* ==========================================================================
+   MAXIMUM PERFORMANCE MODE
+   ========================================================================== */
+
+/* Tryb wydajnoĹ›ciowy dla sĹ‚abszych urzÄ…dzeĹ„ i Firefox Mobile */
+@media (max-width: 768px), (max-height: 600px), (prefers-reduced-motion: reduce) {
+  .particles-canvas { display: none !important; }
+  .liquid-bg { display: none !important; }
+  .gradient-orb { display: none !important; }
+  
+  .greeting-massive { animation: none !important; }
+  .holo__rings { animation: none !important; }
+  
+  .btn-holographic .btn-particles { display: none !important; }
+  .play-button-modern::before { animation: none !important; }
+  .portfolio-arrow::before { animation: none !important; }
+  
+  * { 
+    transition-duration: 0.1s !important; 
+    animation-duration: 0.1s !important; 
+  }
+}
+
+/* Firefox Mobile specific fixes */
+@-moz-document url-prefix() {
+  @media (max-width: 768px) {
+    .particles-canvas,
+    .liquid-bg,
+    .gradient-orb {
+      display: none !important;
+    }
+    
+    .greeting-massive {
+      animation: none !important;
+      transform: none !important;
+    }
+    
+    .holo__rings {
+      animation: none !important;
+    }
+    
+    .portfolio-slider-container {
+      transform: none !important;
+    }
+    
+    .portfolio-track {
+      transition: none !important;
+    }
+    
+    .portfolio-item {
+      transition: none !important;
+    }
+    
+    /* WyĹ‚Ä…cz wszystkie backdrop-filter na Firefox Mobile */
+    .glass-card,
+    .nav-glass,
+    .about-title,
+    .infographic-card,
+    .play-button-modern,
+    .portfolio-arrow {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(4,8,16,.9) !important;
+    }
+  }
+}
+
+/* Uniwersalne ukrycie wszystkich potencjalnych ciemnych elementĂłw */
+*[style*="background: black"],
+*[style*="background: #000"],
+*[style*="background: rgba(0,0,0"],
+*[style*="background-color: black"],
+*[style*="background-color: #000"] {
+  background: transparent !important;
+}
+
+/* Ukryj wszystkie elementy z ciemnym tĹ‚em w lewym gĂłrnym rogu */
+*[style*="position: fixed"][style*="top: 0"][style*="left: 0"],
+*[style*="position: absolute"][style*="top: 0"][style*="left: 0"] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   BROWSER COMPATIBILITY FALLBACKS
+   ========================================================================== */
+
+/* Safari fallbacks */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .glass-card {
+    -webkit-backdrop-filter: saturate(130%) blur(12px);
+    backdrop-filter: saturate(130%) blur(12px);
+  }
+  .nav-glass {
+    -webkit-backdrop-filter: saturate(130%) blur(14px);
+    backdrop-filter: saturate(130%) blur(14px);
+  }
+  .about-title {
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    backdrop-filter: saturate(140%) blur(10px);
+  }
+  .infographic-card {
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+  .play-button-modern {
+    -webkit-backdrop-filter: saturate(160%) blur(6px);
+    backdrop-filter: saturate(160%) blur(6px);
+  }
+}
+
+/* Firefox fallbacks */
+@-moz-document url-prefix() {
+  .particles-canvas {
+    opacity: 0.15; /* Firefox ma problemy z particles */
+  }
+  .gradient-orb {
+    opacity: 0.3; /* Zmniejsz intensywnoĹ›Ä‡ w Firefox */
+  }
+}
+
+/* Internet Explorer fallbacks */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .particles-canvas,
+  .liquid-bg,
+  .gradient-orb {
+    display: none !important;
+  }
+  .glass-card,
+  .nav-glass,
+  .about-title,
+  .infographic-card {
+    background: rgba(15,30,57,.9) !important;
+  }
+  .greeting-massive {
+    animation: none !important;
+  }
+}
+
+/* WyĹ‚Ä…cz wszystkie animacje dla maksymalnej wydajnoĹ›ci */
+.portfolio-slider-container * {
+  transition: none;
+  animation: none;
+}
+
+/* PrzywrĂłÄ‡ tylko niezbÄ™dne transitions */
+.portfolio-track {
+  transition: transform 0.05s ease-out;
+}
+
+.portfolio-item {
+  transition: opacity 0.02s ease;
+}
+
+@supports not ((backdrop-filter:blur(10px)) or (-webkit-backdrop-filter:blur(10px))){
+  .glass-card, .nav-glass, .contact-form, .section-header{ background: rgba(15,30,57,.85); }
+}
+

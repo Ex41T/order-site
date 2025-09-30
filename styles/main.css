@@ -1,0 +1,33 @@
+/* ==========================================================================
+   MAIN CSS - ORDER SITE
+   Zmodularyzowany i zoptymalizowany stylesheet
+   ========================================================================== */
+
+/* 1. Reset & Variables */
+@import './modules/variables.css';
+@import './modules/reset.css';
+
+/* 2. Base & Utilities */
+@import './modules/css/base.css';
+@import './modules/css/utilities.css';
+
+/* 3. Layout Components */
+@import './modules/css/backgrounds.css';
+@import './modules/css/navigation.css';
+@import './modules/css/hero.css';
+@import './modules/css/about.css';
+@import './modules/css/skills.css';
+@import './modules/css/portfolio.css';
+@import './modules/css/contact.css';
+@import './modules/css/footer.css';
+
+/* 4. Forms & Interactive Elements */
+@import './modules/css/forms.css';
+
+/* 5. Animations & Performance */
+@import './modules/css/animations.css';
+@import './modules/css/performance.css';
+
+/* 6. Responsive Design */
+@import './modules/css/responsive.css';
+
