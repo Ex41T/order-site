@@ -1,0 +1,178 @@
+﻿/* ==========================================================================
+   ABOUT (clean pack)
+   HTML:
+   <div class="holo">
+     <span class="holo__rings" aria-hidden="true"></span>
+     <figure class="holo__photo"><img ...></figure>
+   </div>
+   ========================================================================== */
+
+.about-content-revolutionary{
+  display:grid; grid-template-columns: 1fr 1.2fr; align-items:center;
+  gap: clamp(24px,4vw,42px);
+}
+
+/* tytuĹ‚ + karta */
+.about-title{
+  position:relative; display:inline-block; padding:10px 16px;
+  border-radius:14px; border:1px solid var(--border);
+  background: linear-gradient(180deg, rgba(15,30,57,.72), rgba(15,30,57,.42));
+  /* Fallback dla przeglÄ…darek bez backdrop-filter */
+  background: rgba(15,30,57,.85);
+  /* Nowoczesne przeglÄ…darki */
+  backdrop-filter:saturate(140%) blur(10px);
+  box-shadow: inset 0 0 24px rgba(0,213,255,.08), 0 10px 26px rgba(0,0,0,.35);
+}
+.about-title::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  box-shadow:0 0 0 1px rgba(0,213,255,.22), inset 0 0 32px rgba(0,213,255,.08);
+}
+.greeting-massive{
+  margin:0; font-size: clamp(2rem,5vw,3.5rem); font-weight:900; letter-spacing:-.01em; line-height:1.18;
+  text-align:center;
+  background: linear-gradient(90deg, var(--primary), var(--accent) 55%, var(--link));
+  background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  text-shadow:0 0 10px rgba(0,213,255,.30), 0 0 24px rgba(0,213,255,.22), 0 0 38px rgba(0,157,255,.18);
+  -webkit-text-stroke:.6px rgba(0,213,255,.18);
+  animation: aboutTitleFlow 6s ease-in-out infinite;
+  transition: transform .35s ease, text-shadow .35s ease;
+  will-change: transform, background-position;
+  transform: translate3d(0,0,0);
+}
+.greeting-massive:hover{ transform: translateY(-1px) scale(1.03); text-shadow:0 0 12px rgba(0,255,255,.55), 0 0 32px rgba(0,157,255,.45), 0 0 48px rgba(0,255,200,.35); }
+@keyframes aboutTitleFlow{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+.about-text-revolutionary{ width:100%; }
+.about-description-pro{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid var(--border); border-radius:var(--radius);
+  padding: clamp(16px,3vw,24px); color:var(--text);
+  backdrop-filter: saturate(130%) blur(12px); box-shadow: 0 10px 36px rgba(0,0,0,.35);
+}
+.apple-text{ color:#fff; font-family:"Roboto",sans-serif; font-size:var(--step-1); font-weight:400; letter-spacing:.025em; line-height:1.6; text-shadow:0 1px 2px rgba(0,0,0,.3); }
+
+/* Avatar â€“ finalny wariant */
+.holo{
+  /* odstÄ™p miÄ™dzy zdjÄ™ciem a ringami */
+  --ring-clear: clamp(44px, 4.4vw, 68px);
+
+  position:relative; width: var(--avatar, 600px); aspect-ratio:1/1;
+  display:grid; place-items:center; isolation:isolate;
+}
+.holo__photo{
+  width: calc(100% - (var(--ring-clear) * 2));
+  height: calc(100% - (var(--ring-clear) * 2));
+  border-radius:50%; overflow:hidden;
+  border:1.5px solid rgba(0,231,255,.35);
+  /* edge-only glow */
+  box-shadow:
+    inset 0 0 8px rgba(0,231,255,.08),
+    0 0 14px 3px rgba(0,231,255,.22),
+    0 0 24px 7px rgba(0,231,255,.14);
+}
+.holo__photo img{
+  width:100%; height:100%; object-fit:cover; transform: translateZ(0) scale(1);
+  transition: transform 420ms cubic-bezier(.22,.61,.36,1); backface-visibility:hidden; will-change:transform;
+  border-radius: 50%; /* Upewnij siÄ™ ĹĽe obraz jest okrÄ…gĹ‚y */
+}
+
+/* Mobile - lepsze wyĹ›wietlanie obrazĂłw */
+@media (max-width:768px){
+  .holo__photo img{
+    object-fit: cover;
+    object-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* OgĂłlne style dla wszystkich obrazĂłw na mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Lepsze wyĹ›wietlanie obrazĂłw w portfolio */
+  .portfolio-video img,
+  .portfolio-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+}
+@media (hover:hover){
+  .holo:hover .holo__photo img{ transform: translateZ(0) scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce){ .holo__photo img{ transition:none; } }
+
+/* Ringi â€“ 3 warstwy: element + 2 pseudo */
+.holo__rings,
+.holo__rings::before,
+.holo__rings::after{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  box-shadow: 0 0 50px rgba(0,231,255,.18);
+}
+.holo__rings{ 
+  inset:0; border:2px solid rgba(0,231,255,.35); opacity:.9; 
+  animation: halo 8s ease-in-out infinite;
+  will-change: transform;
+  transform: translate3d(0,0,0);
+}
+.holo__rings::before{ inset:-24px; border:1px solid rgba(0,231,255,.25); opacity:.7; }
+.holo__rings::after { inset:-48px; border:1px solid rgba(0,231,255,.18); opacity:.5; }
+@keyframes halo{ 50%{ transform: scale(1.015); } }
+
+/* Desktop â€“ para wycentrowana, szeroki gap, avatar ~ karta */
+@media (min-width:1700px){
+  .about-section .container{ max-width: min(1400px, 92vw); margin-inline:auto; }
+  .about-section .about-content-revolutionary{
+    --text-w:   clamp(600px, 48vw, 760px);
+    --avatar:   clamp(560px, calc(var(--text-w) * .96), 780px);
+    --pair-gap: clamp(144px, 12vw, 360px);
+
+    display:grid;
+    grid-template-columns: var(--avatar) var(--text-w);
+    column-gap: var(--pair-gap);
+    align-items:center;
+    justify-content:center;
+  }
+}
+
+/* Mobile/Tablet â€“ kolumna */
+@media (max-width:768px){
+  .about-content-revolutionary{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    row-gap: clamp(24px,4vw,32px);
+  }
+  .about-visual-quantum{ 
+    order:-1; 
+    margin-bottom: 20px;
+  }
+  .about-text-revolutionary{ 
+    width:min(96vw,880px); 
+    margin-inline:auto; 
+  }
+  .about-description-pro{
+    padding: clamp(20px,4vw,28px);
+    margin-bottom: 20px;
+  }
+  .greeting-massive{
+    font-size: clamp(2.2rem, 8vw, 3rem);
+    margin-bottom: 16px;
+  }
+  .apple-text{
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    line-height: 1.6;
+  }
+  .skills-infographics{
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .infographic-card{
+    min-height: 120px;
+    padding: 20px 16px;
+  }
+}
+

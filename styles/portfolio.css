@@ -1,0 +1,648 @@
+﻿/* ==========================================================================
+   PORTFOLIO
+   ========================================================================== */
+
+.section-header{
+  max-width:min(980px,92vw); margin:0 auto clamp(22px,3vw,32px); padding:14px 18px;
+  text-align:center;
+}
+
+/* Mobile section headers */
+@media (max-width:768px){
+  .section-header{
+    padding: 20px 16px;
+    margin-bottom: 30px;
+  }
+  .section-title{
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    margin-bottom: 12px;
+  }
+}
+.section-title{
+  margin:0; font-size:var(--step-2); font-weight:700; letter-spacing:.25em; text-transform:uppercase; display:inline-block; cursor:default;
+  background:linear-gradient(90deg, #00ffe7, #009dff, #c86bfa);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  text-shadow:0 0 15px rgba(0,255,231,.6), 0 0 30px rgba(0,157,255,.5), 0 0 50px rgba(200,107,250,.4), 0 0 80px rgba(0,255,231,.3);
+  transition: transform .35s ease, text-shadow .35s ease;
+}
+.section-title:hover{ transform: scale(1.08); text-shadow:0 0 20px rgba(0,255,231,.8), 0 0 40px rgba(0,157,255,.7), 0 0 60px rgba(200,107,250,.6), 0 0 100px rgba(0,255,231,.5); }
+.title-decoration{ height:2px; margin-top:10px; background: linear-gradient(90deg, transparent, rgba(0,213,255,.5), transparent); }
+
+.portfolio-slider-container{
+  --slider-h:clamp(420px,58vh,780px);
+  position:relative; width:100%; margin:0 auto; overflow:hidden;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Lekkie cienie po bokach slidera - usuniÄ™te */
+.portfolio-slider-container::before,
+.portfolio-slider-container::after{
+  display: none !important;
+}
+.portfolio-slider{ 
+  display:flex; 
+  align-items:center; 
+  gap:clamp(16px,2vw,32px); 
+  overflow:hidden; 
+  height:var(--slider-h);
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.portfolio-track{ 
+  display:flex; 
+  align-items:center; 
+  gap:clamp(12px,2vw,24px); 
+  will-change:transform; 
+  transition: transform 0.08s ease-out;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout;
+}
+
+.portfolio-item{
+  position:relative; flex:0 0 clamp(220px,22vw,340px); height:100%;
+  display:flex; align-items:center; justify-content:center;
+  opacity:.6; transform:scale(1) translateZ(0);
+  transition: opacity 0.03s ease;
+  will-change: opacity;
+  backface-visibility: hidden;
+  contain: layout;
+}
+.portfolio-item.left, .portfolio-item.right{ opacity:.7; }
+.portfolio-item.active{ opacity:1; transform:scale(1.01) translateZ(0); z-index:2; }
+.portfolio-item:not(.active)::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(135deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.4) 100%);
+  border-radius: inherit;
+}
+
+.portfolio-video{
+  position:relative; display:grid; place-items:center; aspect-ratio:9/16; border-radius:20px; overflow:hidden;
+  border:1px solid var(--border); background: rgba(255,255,255,.02);
+}
+.portfolio-item video{ width:100%; height:100%; object-fit:cover; border-radius:14px; }
+
+/* Play button */
+.video-container-hero, .portfolio-video{ position:relative; }
+
+.play-button-modern{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:var(--pb-play-size-card); aspect-ratio:1; border-radius:50%;
+  display:grid; place-items:center; cursor:pointer; z-index:2;
+  background:
+    radial-gradient(120% 120% at 30% 30%, rgba(0,255,234,.18), rgba(0,163,255,.08) 60%, rgba(255,255,255,.04)),
+    var(--pb-bg);
+  /* Fallback dla przeglÄ…darek bez backdrop-filter */
+  background: rgba(10,25,45,.85);
+  /* Nowoczesne przeglÄ…darki */
+  -webkit-backdrop-filter:saturate(160%) blur(6px); backdrop-filter:saturate(160%) blur(6px);
+  box-shadow: inset 0 0 0 1px var(--pb-cyan-soft), 0 8px 24px rgba(0,0,0,.35), 0 0 0 6px rgba(0,231,255,.10);
+  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+.video-container-hero .play-button-modern{ width: var(--pb-play-size-hero); }
+.play-button-modern i{ font-size:clamp(18px,2.2vw,28px); color:#e7fdff; text-shadow:0 0 18px rgba(0,231,255,.55); pointer-events:none; }
+.play-button-modern::after{
+  content:""; position:absolute; inset:-6px; border-radius:inherit; border:2px solid var(--pb-cyan-soft);
+  opacity:.85; animation: pb-pulse 2s ease-out infinite;
+}
+.play-button-modern::before{
+  content:""; position:absolute; inset:-10px; border-radius:inherit;
+  background: conic-gradient(from 0deg, rgba(0,255,235,.65), rgba(0,135,255,.35), rgba(170,0,255,.38), rgba(0,255,235,.65));
+  filter: blur(14px); opacity:.55; z-index:-1; animation: pb-spin 8s linear infinite;
+}
+@keyframes pb-pulse{ 0%{transform:scale(1);opacity:.85} 100%{transform:scale(1.6);opacity:0} }
+@keyframes pb-spin{ to{ transform: rotate(360deg); } }
+
+.play-button-modern:hover{ transform: translate(-50%,-50%) scale(1.06); box-shadow: inset 0 0 0 1px rgba(0,255,255,.5), 0 10px 28px rgba(0,0,0,.4), 0 0 0 8px rgba(0,231,255,.16); }
+.play-button-modern:active{ transform: translate(-50%,-50%) scale(.97); }
+.play-button-modern:focus-visible{ outline:none; box-shadow: inset 0 0 0 1px #fff, 0 0 0 3px #fff8, 0 0 0 8px var(--pb-cyan-soft); }
+
+.portfolio-item.is-playing .play-button-modern,
+.video-container-hero.is-playing .play-button-modern{
+  opacity:0; pointer-events:none; transform:translate(-50%,-50%) scale(.9);
+}
+.portfolio-item video[controls] ~ .play-button-modern{ display:none; }
+
+/* StrzaĹ‚ki */
+.portfolio-arrow{
+  position:absolute; top:50%; translate:0 -50%;
+  width:clamp(44px,5.5vw,64px); aspect-ratio:1; display:grid; place-items:center;
+  border:0; border-radius:999px; cursor:pointer; z-index:5;
+  background: radial-gradient(110% 120% at 30% 30%, rgba(0,255,235,.18), rgba(0,163,255,.10) 60%, rgba(255,255,255,.06)), rgba(10,25,45,.35);
+  -webkit-backdrop-filter:blur(6px) saturate(160%); backdrop-filter:blur(6px) saturate(160%);
+  box-shadow: inset 0 0 0 1px rgba(0,231,255,.35), 0 6px 18px rgba(0,0,0,.35), 0 0 0 6px rgba(0,231,255,.10);
+  color:#e7fdff; opacity:.9; transition: transform .18s ease, box-shadow .18s ease, opacity .2s ease, background .2s ease;
+}
+.portfolio-arrow i{ pointer-events:none; font-size:clamp(16px,2.2vw,22px); text-shadow:0 0 14px rgba(0,231,255,.55); }
+.portfolio-arrow.left{  left:max(10px, env(safe-area-inset-left)); }
+.portfolio-arrow.right{ right:max(10px, env(safe-area-inset-right)); }
+.portfolio-arrow::after{
+  content:""; position:absolute; inset:-6px; border-radius:inherit; border:2px solid rgba(0,231,255,.35);
+  animation: pa-pulse 2s ease-out infinite;
+}
+@keyframes pa-pulse{ from{transform:scale(1);opacity:.8} to{transform:scale(1.5);opacity:0} }
+.portfolio-arrow:hover{ transform: translateY(-50%) scale(1.06); box-shadow: inset 0 0 0 1px rgba(0,255,255,.55), 0 10px 24px rgba(0,0,0,.4), 0 0 0 8px rgba(0,231,255,.16); }
+.portfolio-arrow:active{ transform: translateY(-50%) scale(.96); }
+.portfolio-arrow:focus-visible{ outline:none; box-shadow: inset 0 0 0 1px #fff, 0 0 0 3px #fff8, 0 0 0 8px rgba(0,231,255,.3); }
+@media (hover:hover){
+  .portfolio-arrow{ opacity:0; pointer-events:none; }
+  .portfolio-slider-container:hover .portfolio-arrow{ opacity:1; pointer-events:auto; }
+}
+@media (max-width:768px){
+  .portfolio-arrow{ width:46px; }
+  .portfolio-arrow.left{ left:6px; } .portfolio-arrow.right{ right:6px; }
+}
+.portfolio-arrow.is-disabled{ opacity:.35; filter:grayscale(1); pointer-events:none; }
+
+/* kontrolki przeglÄ…darki nieprzycinane */
+.portfolio-slider, .portfolio-track, .portfolio-item, .portfolio-video{ overflow: visible; }
+
+/* Mobile - WYĹÄ„CZ CSS scroll, uĹĽywamy tylko JS touch events */
+@media (max-width:768px){
+  .portfolio-slider{ 
+    overflow: visible; /* WyĹ‚Ä…cz CSS scroll */
+    scroll-behavior: auto; /* WyĹ‚Ä…cz smooth scroll */
+    scroll-snap-type: none; /* WyĹ‚Ä…cz snap */
+    -webkit-overflow-scrolling: auto; /* WyĹ‚Ä…cz iOS smooth scrolling */
+    scrollbar-width: none; /* Firefox - ukryj scrollbar */
+    -ms-overflow-style: none; /* IE/Edge - ukryj scrollbar */
+    touch-action: manipulation; /* PozwĂłl na touch ale nie scroll */
+    overscroll-behavior-x: contain; /* Zapobiegaj overscroll */
+  }
+  
+  /* Webkit - ukryj scrollbar */
+  .portfolio-slider::-webkit-scrollbar {
+    display: none;
+  }
+  .portfolio-track{ 
+    overflow: visible; /* Zachowaj dla animacji */
+    width: max-content; /* Zapewnij peĹ‚nÄ… szerokoĹ›Ä‡ dla przewijania */
+    min-width: 100%; /* Minimum szerokoĹ›Ä‡ kontenera */
+    display: flex; /* Upewnij siÄ™ ĹĽe to flex */
+    align-items: center; /* WyĹ›rodkuj pionowo */
+  }
+  .portfolio-item{ 
+    scroll-snap-align: none; /* WyĹ‚Ä…cz snap */
+    scroll-snap-stop: normal; /* WyĹ‚Ä…cz snap */
+    flex: 0 0 var(--card-w); /* UĹĽyj zmiennej --card-w dla mobile */
+    width: var(--card-w); /* Zapewnij staĹ‚Ä… szerokoĹ›Ä‡ */
+    flex-shrink: 0; /* Nie pozwĂłl siÄ™ zmniejszyÄ‡ */
+  }
+}
+.video-controls-overlay{ position:absolute; inset:0 0 clamp(44px, 6vh, 64px) 0; z-index:1; pointer-events:none; }
+.portfolio-video video{ position:relative; z-index:2; display:block; width:100%; height:auto; border-radius:inherit; }
+.play-button-modern{ position:absolute; z-index:3; pointer-events:auto; }
+video::-webkit-media-controls-enclosure{ overflow:visible; }
+
+
+/* --- PORTFOLIO: nawigacja kropkami --- */
+.portfolio-navigation{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap: 10px;
+  margin-top: clamp(10px, 2vw, 16px);
+  position: absolute;
+  bottom: -30px; /* PrzenieĹ› kropki poniĹĽej slidera */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.nav-dot{
+  --dot: 10px;
+  width: var(--dot);
+  height: var(--dot);
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, var(--primary), transparent 65%);
+  box-shadow:
+    0 0 0 2px rgba(0,213,255,.25),
+    0 0 8px rgba(0,213,255,.35);
+  opacity: .55;
+  transform: translateZ(0) scale(.92);
+  transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease, background .18s ease;
+  cursor: pointer;
+}
+
+.nav-dot:hover{
+  opacity: .85;
+  transform: scale(1.05);
+  box-shadow:
+    0 0 0 2px rgba(0,255,255,.45),
+    0 0 14px rgba(0,255,255,.60);
+}
+
+.nav-dot.active{
+  opacity: 1;
+  transform: scale(1.25);
+  background: radial-gradient(circle at 50% 45%, var(--primary-2, #1ee3ff), rgba(0,213,255,.35) 70%);
+  box-shadow:
+    0 0 0 2px rgba(0,255,255,.55),
+    0 0 18px rgba(0,255,255,.75),
+    inset 0 0 20px rgba(0,255,255,.24);
+}
+
+.nav-dot:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px #ffffff66,
+    0 0 0 8px rgba(0,231,255,.35);
+}
+
+/* --- PORTFOLIO: schowaj podpisy/nazwy filmĂłw pod kartami --- */
+/* JeĹĽeli nazwa jest w .video-title â€“ to wystarczy ta linia: */
+.portfolio-slider-container .video-title{ display:none; }
+
+/* Dodatkowe bezpieczne selektory na wypadek innej klasy/znacznika: */
+.portfolio-slider-container .portfolio-item figcaption,
+.portfolio-slider-container .portfolio-item .caption,
+.portfolio-slider-container .portfolio-item .item-title,
+.portfolio-slider-container .portfolio-item h3.video-title,
+.portfolio-slider-container .portfolio-item h4.video-title{
+  display:none;
+}
+
+/* ==========================================================================
+   YOUTUBE IFRAME OPTIMIZATION
+   ========================================================================== */
+
+/* YouTube container - peĹ‚noekranowy responsywny */
+.youtube-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* YouTube container w portfolio-video - peĹ‚noekranowy */
+.portfolio-video .youtube-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* YouTube iframe - peĹ‚noekranowy responsywny z priorytetem */
+.youtube-container iframe {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  opacity: 1 !important;
+  transition: opacity 0.3s ease;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+/* Play buttony usuniÄ™te - YouTube uĹĽywa wĹ‚asnego UI */
+
+/* PeĹ‚noekranowy responsywny tryb dla wszystkich filmĂłw */
+.portfolio-video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Selektywna klasa .aspect-16-9 dla wybranych filmĂłw */
+.portfolio-item.aspect-16-9 .youtube-container {
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: 100%;
+}
+
+/* Landscape videos - zachowana kompatybilnoĹ›Ä‡ */
+.portfolio-item.landscape .youtube-container {
+  aspect-ratio: 16/9;
+}
+
+/* ResponsywnoĹ›Ä‡ dla rĂłĹĽnych rozmiarĂłw ekranu */
+@media (max-width: 768px) {
+  .portfolio-video {
+    height: 80vh;
+    min-height: 400px;
+  }
+  
+  .portfolio-item.aspect-16-9 .youtube-container {
+    height: 60vh;
+    min-height: 300px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .portfolio-video {
+    height: 90vh;
+    max-height: 800px;
+  }
+  
+  .portfolio-item.aspect-16-9 .youtube-container {
+    height: 70vh;
+    max-height: 600px;
+  }
+}
+
+/* YouTube thumbnail placeholder */
+.youtube-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(135deg, rgba(0,213,255,.1), rgba(0,255,200,.05)),
+    radial-gradient(circle at 30% 30%, rgba(0,213,255,.15), transparent 60%);
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 1) Daj miejsce na dole, ĹĽeby glow kropek nie byĹ‚ ucinany */
+.portfolio-slider-container{
+  --dots-clearance: 60px;        /* wiÄ™cej miejsca pod kropki + halo */
+  padding-bottom: var(--dots-clearance);
+  position: relative;
+}
+
+/* 3) UsuĹ„ â€žpodstawkÄ™â€ť pod kropkami â€“ bez panelu/paska */
+.portfolio-navigation{
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* 4) (Masz juĹĽ) â€“ kontrolki nieprzycinane.
+   JeĹ›li gdzieĹ› brakuje, zostaw: */
+.portfolio-slider,
+.portfolio-track,
+.portfolio-item,
+.portfolio-video{ overflow: visible; }
+
+
+
+
+
+
+
+
+
+/* --- SLIDER: rozmiar okna sterowany proporcjÄ… --- */
+.portfolio-slider {
+  display: flex; align-items: center; gap: clamp(16px, 2vw, 32px);
+  width: min(1100px, 92vw);
+  margin-inline: auto;
+
+  /* domyĹ›lnie pion 9:16 */
+  aspect-ratio: 9 / 16;
+  height: auto;
+  max-height: clamp(420px, 58vh, 780px);
+}
+
+/* okno 16:9 gdy aktywny slajd ma landscape */
+.portfolio-slider:has(.portfolio-item.active.landscape) {
+  aspect-ratio: 16 / 9;
+}
+
+/* (fallback dla bardzo starych przeglÄ…darek) */
+@supports not (aspect-ratio: 1 / 1) {
+  .portfolio-slider { position: relative; }
+  .portfolio-slider:has(.portfolio-item.active.landscape)::before {
+    content: ""; display: block; padding-top: calc(9 / 16 * 100%); /* 16:9 */
+  }
+}
+
+/* --- KARTY: staĹ‚a szerokoĹ›Ä‡ dla wszystkich --- */
+.portfolio-item {
+  --card-w: clamp(220px, 22vw, 340px);
+  flex: 0 0 var(--card-w);
+  height: 100%;
+}
+
+/* obudowa wideo */
+.portfolio-video {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  /* domyĹ›lna proporcja karty (pion) */
+  aspect-ratio: 9 / 16;
+}
+
+/* landscape zmienia TYLKO proporcjÄ™ ramki, nie ukĹ‚ad */
+.portfolio-item.landscape .portfolio-video { aspect-ratio: 16 / 9; }
+
+/* media w Ĺ›rodku */
+.portfolio-video > video {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transform: none; transition: transform .35s cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
+}
+
+/* â€žpowiÄ™kszâ€ť wizualnie tylko aktywne landscape â€” bez zmiany layoutu */
+.portfolio-item.landscape.active .portfolio-video > video {
+  transform: scale(1.22);        /* dopasuj 1.18â€“1.28 wg gustu */
+  transform-origin: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- ROZMIAR OKNA SLIDERA --- */
+.portfolio-slider-container{
+  /* globalne limity â€“ moĹĽesz Ĺ›miaĹ‚o podkrÄ™ciÄ‡ */
+  --slider-w: min(1500px, 94vw);         /* szerokoĹ›Ä‡ okna dla 9:16 */
+  --slider-h: clamp(480px, 64vh, 880px); /* maks. wysokoĹ›Ä‡ dla 9:16 */
+}
+
+.portfolio-slider{
+  display:flex; align-items:center; gap:clamp(16px,2vw,32px);
+  width: var(--slider-w);
+  margin-inline:auto;
+  aspect-ratio: 9 / 16;        /* domyĹ›lnie pion */
+  height:auto;
+  max-height: var(--slider-h);
+}
+
+/* Gdy aktywny slajd jest landscape â†’ wiÄ™ksze okno + 16:9 */
+.portfolio-slider:has(.portfolio-item.active.landscape){
+  --slider-w: min(1700px, 96vw);         /* szersze okno dla 16:9 */
+  --slider-h: clamp(420px, 72vh, 960px); /* limit wysokoĹ›ci dla 16:9 */
+  aspect-ratio: 16 / 9;
+}
+
+/* Mobile portfolio slider - NAPRAWIONE */
+@media (max-width:768px){
+  .portfolio-slider-container{
+    --slider-w: min(80vw, 240px); /* Jeszcze mniejsza szerokoĹ›Ä‡ */
+    --slider-h: clamp(100px, 15vh, 140px); /* Jeszcze mniejsza wysokoĹ›Ä‡ */
+    padding: 0 8px;
+    overflow: visible; /* PozwĂłl na touch events */
+  }
+  
+  .portfolio-slider{
+    gap: 8px; /* Mniejszy gap */
+    /* UsuĹ„ aspect-ratio na mobile - powoduje problemy w Firefox */
+    height: var(--slider-h);
+    width: var(--slider-w);
+    overflow: visible; /* WyĹ‚Ä…cz CSS scroll na mobile */
+    scroll-behavior: auto; /* WyĹ‚Ä…cz smooth scroll */
+    scroll-snap-type: none; /* WyĹ‚Ä…cz snap */
+    -webkit-overflow-scrolling: auto; /* WyĹ‚Ä…cz iOS smooth scroll */
+    touch-action: manipulation; /* PozwĂłl na touch ale nie scroll */
+  }
+  
+  .portfolio-slider:has(.portfolio-item.active.landscape){
+    --slider-w: min(90vw, 300px);
+    --slider-h: clamp(140px, 20vh, 180px);
+    /* UsuĹ„ aspect-ratio */
+  }
+  
+  .portfolio-item{
+    --card-w: clamp(100px, 30vw, 160px); /* Jeszcze mniejsze karty */
+    flex: 0 0 var(--card-w);
+    height: 100%;
+  }
+  
+  .portfolio-arrow{
+    width: 40px;
+    height: 40px;
+    z-index: 10; /* WyĹĽej niĹĽ inne elementy */
+    pointer-events: auto; /* Zawsze aktywne na mobile */
+    opacity: 1 !important; /* Zawsze widoczne na mobile */
+  }
+  
+  .portfolio-arrow.left{ left: 4px; }
+  .portfolio-arrow.right{ right: 4px; }
+  
+  .portfolio-navigation{
+    bottom: -25px; /* Kropki poniĹĽej slidera na mobile */
+    gap: 6px;
+  }
+  
+  .nav-dot{
+    --dot: 7px;
+  }
+}
+
+/* --- KARTY: staĹ‚a szerokoĹ›Ä‡, ĹĽeby nie rozjeĹĽdĹĽaÄ‡ centrowania --- */
+.portfolio-item{
+  --card-w: clamp(260px, 26vw, 420px); /* trochÄ™ wiÄ™ksze kafelki */
+  flex: 0 0 var(--card-w);
+  height: 100%;
+}
+.portfolio-video{ aspect-ratio: 9 / 16; overflow:hidden; border-radius:20px; }
+.portfolio-item.landscape .portfolio-video{ aspect-ratio: 16 / 9; }
+
+/* Media w Ĺ›rodku */
+.portfolio-video > video{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transform:translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* â€žPowiÄ™ksz" tylko aktywny slajd wizualnie (bez zmiany layoutu) */
+.portfolio-item.active .portfolio-video > video{ transform: scale(1.05) translateZ(0); }
+.portfolio-item.landscape.active .portfolio-video > video{ transform: scale(1.1) translateZ(0); }
+
+
+
+
+
+
+
+
+/* 1) wyĹ‚Ä…cz stary cieĹ„ na .portfolio-video (ĹĽeby nie byĹ‚o podwĂłjnego) */
+.portfolio-video{ box-shadow: none; position: relative; }
+
+/* 2) cieĹ„ tylko dla aktywnej karty (portret 9:16) */
+.portfolio-item.active .portfolio-video::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+  box-shadow: 
+    0 0 15px rgba(0,213,255,.4),
+    0 0 30px rgba(0,213,255,.2);
+  opacity:1;
+}
+
+/* 3) w landscape cieĹ„ ma ZNIKNÄ„Ä† */
+.portfolio-item.landscape .portfolio-video::after{ content:none; }
+
+/* (awaryjnie) wyĹ‚Ä…cz stare pseudo-ramki na aktywnej karcie, jeĹĽeli gdzieĹ› byĹ‚y */
+.portfolio-item.active::before,
+.portfolio-item.active::after{ content:none; }
+
+
+
+
+
+
+/* 1) wyĹ‚Ä…cz staĹ‚y box-shadow, bÄ™dziemy rysowaÄ‡ pseudo-elementem */
+.portfolio-video{ box-shadow: none; position: relative; }
+
+/* 2) uniwersalny cieĹ„ dla aktywnej karty â€“ dziaĹ‚a dla 9:16 i 16:9 */
+.portfolio-item.active .portfolio-video::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;          /* ten sam zaokrÄ…glony ksztaĹ‚t co wideo */
+  pointer-events:none;
+  box-shadow:
+    0 0 24px rgba(0,213,255,.35),
+    0 0 60px rgba(0,213,255,.18),
+    inset 0 0 20px rgba(0,213,255,.12);
+  opacity:1; transition:opacity .25s ease;
+}
+
+/* (opcjonalnie) wyĹ‚Ä…cz ewentualne stare pseudo-glowy na karcie */
+.portfolio-item.active::before,
+.portfolio-item.active::after{ content:none; }
+
+/* Ukryj wszystkie potencjalne ciemne elementy w portfolio */
+.portfolio-slider-container * {
+  background: transparent !important;
+}
+
+.portfolio-slider-container .portfolio-video {
+  background: #000 !important;
+}
+

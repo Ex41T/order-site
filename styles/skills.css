@@ -1,0 +1,40 @@
+﻿/* ==========================================================================
+   SKILLS
+   ========================================================================== */
+
+.skills-infographics{
+  display:grid; grid-template-columns: repeat(3, minmax(220px,1fr));
+  gap: var(--gap); margin-top: clamp(12px,2vw,20px); align-items: stretch;
+}
+.infographic-card{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  gap:clamp(10px, 2vh, 16px); min-height:160px; padding:28px 22px; border-radius:var(--radius);
+  background: linear-gradient(180deg, rgba(15,30,57,.7), rgba(15,30,57,.45));
+  border:1px solid rgba(0,213,255,.8);
+  box-shadow:0 0 8px rgba(0,213,255,.8), 0 0 24px rgba(0,213,255,.4);
+  /* Fallback dla przeglÄ…darek bez backdrop-filter */
+  background: rgba(15,30,57,.85);
+  /* Nowoczesne przeglÄ…darki */
+  backdrop-filter: blur(24px);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.infographic-card:hover{ transform: translateY(-6px) scale(1.02); border-color: rgba(0,255,255,1); box-shadow: 0 0 12px rgba(0,255,255,1), 0 0 32px rgba(0,255,255,.8); }
+.infographic-icon{
+  margin:0; font-size:clamp(28px, 3.5vw, 36px); line-height:1; color:var(--primary);
+  text-shadow:0 0 12px rgba(0,213,255,.6);
+}
+.infographic-content{ display:flex; flex-direction:column; align-items:center; gap:6px; }
+.infographic-content h3{ margin:0; font-size:1.05rem; }
+.infographic-content p{ margin:0; color:var(--muted); font-size:.95rem; }
+.infographic-content p strong{ 
+  color: #00d5ff; 
+  text-decoration: underline; 
+  text-decoration-color: #00d5ff;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+.infographic-content p strong:hover{ 
+  color: #00ffff; 
+  text-decoration-color: #00ffff;
+}
+
