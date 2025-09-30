@@ -2273,8 +2273,8 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
 /* Mobile portfolio slider - NAPRAWIONE */
 @media (max-width:768px){
   .portfolio-slider-container{
-    --slider-w: min(80vw, 240px); /* Jeszcze mniejsza szerokość */
-    --slider-h: clamp(100px, 15vh, 140px); /* Jeszcze mniejsza wysokość */
+    --slider-w: min(90vw, 320px); /* Zwiększona szerokość dla lepszej widoczności */
+    --slider-h: clamp(180px, 25vh, 240px); /* Zwiększona wysokość */
     padding: 0 8px;
     overflow: visible; /* Pozwól na touch events */
   }
@@ -2298,7 +2298,7 @@ body.is-menu-open{ overflow:hidden; } /* fallback */
   }
   
   .portfolio-item{
-    --card-w: clamp(100px, 30vw, 160px); /* Jeszcze mniejsze karty */
+    --card-w: clamp(140px, 35vw, 200px); /* Zwiększone karty dla lepszej widoczności */
     flex: 0 0 var(--card-w);
     height: 100%;
   }
