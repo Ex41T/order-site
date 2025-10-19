@@ -64,7 +64,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
   <!-- YouTube IFrame Player API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://www.youtube.com/iframe_api" async></script>
 
   <!-- Note: Video and YouTube preloading removed - causes issues on some browsers -->
 
@@ -654,6 +654,17 @@
   <!-- JS -->
   <script src="./scripts/app.js" defer></script>
   <script>
+    // Ukryj loading screen natychmiast gdy DOM jest gotowy (nie czekaj na iframe'y)
+    function hideLoadingScreen() {
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen && loadingScreen.style.display !== 'none') {
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       // rok w stopce
       const y = document.getElementById('year'); 
@@ -672,29 +683,15 @@
         v.addEventListener("contextmenu", e => e.preventDefault());
       });
 
-      // Ukryj loading screen po załadowaniu
-      const loadingScreen = document.getElementById('loading-screen');
-      if (loadingScreen) {
-        // Ukryj po 1 sekundzie lub gdy wszystko się załaduje
-        setTimeout(() => {
-          loadingScreen.style.opacity = '0';
-          setTimeout(() => {
-            loadingScreen.style.display = 'none';
-          }, 500);
-        }, 1000);
-      }
+      // Ukryj loading screen po 800ms (krótszy timeout dla lepszego UX)
+      setTimeout(hideLoadingScreen, 800);
     });
 
-    // Ukryj loading screen gdy strona jest w pełni załadowana
-    window.addEventListener('load', () => {
-      const loadingScreen = document.getElementById('loading-screen');
-      if (loadingScreen) {
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 500);
-      }
-    });
+    // Backup: Ukryj loading screen po maksymalnie 3 sekundach (nawet jeśli coś się nie załaduje)
+    setTimeout(hideLoadingScreen, 3000);
+
+    // Ukryj loading screen gdy strona jest w pełni załadowana (najszybsza opcja)
+    window.addEventListener('load', hideLoadingScreen);
   </script>
 </body>
 </html>
