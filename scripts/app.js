@@ -480,23 +480,22 @@
       }, 120);
     });
   
-    // --- „kop” po pełnym ułożeniu layoutu, żeby nie trzeba było scrollować ---
+    // --- „kop" po pełnym ułożeniu layoutu, żeby nie trzeba było scrollować ---
     function fixLayout() {
       current = normalize(current);
       recalcTranslateFor(current, false);
       setActive(current);
     }
   
-    // Po pełnym load
-    window.addEventListener('load', () => {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(fixLayout);
-      });
-    });
+    // USUNIĘTE: window.addEventListener('load') - blokuje loading screen
+    // Zamiast tego używamy timeoutów
   
-    // Gdy czcionki się dociągną
+    // Gdy czcionki się dociągną - z timeoutem
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(fixLayout);
+      Promise.race([
+        document.fonts.ready,
+        new Promise(resolve => setTimeout(resolve, 1000))
+      ]).then(fixLayout);
     }
   
     // Gdy metadane wideo (prawdziwe proporcje)
@@ -505,9 +504,10 @@
       if (v) v.addEventListener('loadedmetadata', fixLayout, { once:true });
     });
   
-    // Dodatkowy fallback
+    // Dodatkowy fallback - zwiększony timeout
     requestAnimationFrame(() => requestAnimationFrame(fixLayout));
-    setTimeout(fixLayout, 350);
+    setTimeout(fixLayout, 250);
+    setTimeout(fixLayout, 800);
   }
 
   // ---------- Canvas particles (ULEPSZONE TŁO) - ZAKOMENTOWANE DLA OPTYMALIZACJI ----------
@@ -931,15 +931,30 @@
   // ---------- YouTube IFrame Player API (Profesjonalna implementacja) ----------
   let youtubePlayers = new Map();
   let currentActivePlayer = null;
+  let youtubeAPIReady = false;
 
   // Inicjalizacja YouTube API
   function onYouTubeIframeAPIReady() {
     console.log('YouTube API załadowane');
+    youtubeAPIReady = true;
     initializeYouTubePlayers();
   }
 
+  // Fallback - jeśli YouTube API nie załaduje się w 5 sekund, i tak kontynuuj
+  setTimeout(() => {
+    if (!youtubeAPIReady) {
+      console.warn('YouTube API nie załadowało się w 5 sekund - kontynuuję bez niego');
+    }
+  }, 5000);
+
   // Inicjalizuj wszystkie YouTube players
   function initializeYouTubePlayers() {
+    // Sprawdź czy YT API jest dostępne
+    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+      console.warn('YouTube API nie jest dostępne');
+      return;
+    }
+
     const containers = document.querySelectorAll('.youtube-container');
     containers.forEach((container, index) => {
       const iframe = container.querySelector('iframe');
@@ -951,8 +966,9 @@
       // Dodaj ID do iframe dla YouTube API
       iframe.id = `youtube-player-${index}`;
 
-      // Utwórz nowy player
-      const player = new YT.Player(iframe.id, {
+      try {
+        // Utwórz nowy player
+        const player = new YT.Player(iframe.id, {
         playerVars: {
           autoplay: 0,        // NIE graj automatycznie
           controls: 1,
@@ -982,6 +998,9 @@
           }
         }
       });
+      } catch (error) {
+        console.error(`Nie udało się zainicjalizować YouTube playera ${index + 1}:`, error);
+      }
     });
   }
 
