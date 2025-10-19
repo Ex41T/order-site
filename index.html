@@ -654,18 +654,31 @@
   <!-- JS -->
   <script src="./scripts/app.js" defer></script>
   <script>
-    // Ukryj loading screen natychmiast gdy DOM jest gotowy (nie czekaj na iframe'y)
+    // Flaga zapobiegająca wielokrotnym wywołaniom
+    let loadingScreenHidden = false;
+    
+    // Ukryj loading screen - TYLKO RAZ
     function hideLoadingScreen() {
+      if (loadingScreenHidden) return; // Już ukryty, nie rób nic więcej
+      loadingScreenHidden = true;
+      
       const loadingScreen = document.getElementById('loading-screen');
-      if (loadingScreen && loadingScreen.style.display !== 'none') {
+      if (loadingScreen) {
+        console.log('🎬 Ukrywam loading screen');
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
-          loadingScreen.style.display = 'none';
+          loadingScreen.remove(); // CAŁKOWICIE usuń z DOM (nie tylko ukryj)
+          console.log('✅ Loading screen usunięty z DOM');
         }, 500);
       }
     }
 
+    // GŁÓWNY TIMEOUT - maksymalnie 2 sekundy, bez względu na cokolwiek
+    setTimeout(hideLoadingScreen, 2000);
+
     document.addEventListener("DOMContentLoaded", () => {
+      console.log('📄 DOM załadowany');
+      
       // rok w stopce
       const y = document.getElementById('year'); 
       if (y) y.textContent = new Date().getFullYear();
@@ -683,15 +696,9 @@
         v.addEventListener("contextmenu", e => e.preventDefault());
       });
 
-      // Ukryj loading screen po 800ms (krótszy timeout dla lepszego UX)
-      setTimeout(hideLoadingScreen, 800);
+      // Ukryj loading screen po DOMContentLoaded (jeśli jeszcze nie ukryty)
+      setTimeout(hideLoadingScreen, 600);
     });
-
-    // Backup: Ukryj loading screen po maksymalnie 3 sekundach (nawet jeśli coś się nie załaduje)
-    setTimeout(hideLoadingScreen, 3000);
-
-    // Ukryj loading screen gdy strona jest w pełni załadowana (najszybsza opcja)
-    window.addEventListener('load', hideLoadingScreen);
   </script>
 </body>
 </html>
