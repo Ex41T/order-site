@@ -4,11 +4,11 @@
 
 html { 
   color-scheme: dark;
-  /* Wymuszenie zoom 65% na wszystkich przeglądarkach */
-  zoom: 0.65;
-  -moz-transform: scale(0.65);
+  /* Wymuszenie zoom 90% na wszystkich przeglądarkach */
+  zoom: 0.9;
+  -moz-transform: scale(0.9);
   -moz-transform-origin: 0 0;
-  -webkit-text-size-adjust: 65%;
+  -webkit-text-size-adjust: 90%;
 }
 
 body{
