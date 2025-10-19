@@ -214,6 +214,16 @@
       container.classList.toggle('mode-16x9', ratio === '16/9');
     }
   
+    // 🚀 LAZY LOAD iframe - ładuj dopiero gdy potrzebny
+    function lazyLoadIframe(item) {
+      const iframe = item?.querySelector('iframe');
+      if (iframe && iframe.dataset.src && !iframe.src) {
+        console.log('⚡ Lazy loading iframe:', iframe.title);
+        iframe.src = iframe.dataset.src;
+        iframe.removeAttribute('data-src');
+      }
+    }
+
     function setActive(i) {
       items.forEach(el => el.classList.remove('left','active','right'));
       const li = (i - 1 + items.length) % items.length;
@@ -221,6 +231,11 @@
       items[li]?.classList.add('left');
       items[i]?.classList.add('active');
       items[ri]?.classList.add('right');
+    
+      // 🚀 LAZY LOAD: Załaduj aktywny iframe + sąsiednie (dla płynności)
+      lazyLoadIframe(items[i]);     // Aktywny
+      lazyLoadIframe(items[li]);    // Poprzedni
+      lazyLoadIframe(items[ri]);    // Następny
     
       // YouTube iframe handling - odtwarzaj tylko aktywny, resztę pauzuj
       const activeContainer = items[i]?.querySelector('.youtube-container');
